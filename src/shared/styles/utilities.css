@@ -1,0 +1,10 @@
+@layer utilities {
+
+  .page-layout{
+    @apply mx-10 flex-1 flex flex-col 
+  }
+
+  .flex-center{
+    @apply flex justify-center items-center;
+  }
+}

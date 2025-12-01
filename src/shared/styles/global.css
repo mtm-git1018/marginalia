@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@import "./theme.css" layer(theme);
+@import './utilities.css';
+
+:root{
+  background: #faf8f3;
+  font-family: serif;
+  color:
+}
