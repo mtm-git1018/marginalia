@@ -1,10 +1,22 @@
 @import "tailwindcss";
 
+@import "./base.css";
 @import "./theme.css" layer(theme);
 @import './utilities.css';
 
 :root{
   background: #faf8f3;
   font-family: serif;
-  color:
+  color: var(--color-text);
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
 }
