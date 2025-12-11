@@ -21,7 +21,6 @@ function AddBook() {
         <SearchBook />
       </section>
 
-      <section></section>
 
       <section className="mt-10">
         <ReadStatus />

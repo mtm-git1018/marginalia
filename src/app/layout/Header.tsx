@@ -5,7 +5,7 @@ function Header() {
     <header className="h-14 w-full px-5 py-3 bg-titleText flex justify-between items-center">
       <h1>
         <a href="/" aria-label="Maginalia 홈으로 이동">
-          <img src="/logo.png" alt="로고 이미지" className="h-8 w-auto" />
+          <img src="/logo.webp" alt="로고 이미지" className="h-8 w-auto" />
         </a>
       </h1>
       <button

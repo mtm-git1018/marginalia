@@ -4,6 +4,8 @@ import image1 from '@/shared/asset/welcomeimage1.webp';
 import image2 from '@/shared/asset/welcomeimage2.webp';
 import image3 from '@/shared/asset/welcomeimage3.webp';
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router';
+
 
 const TEMPLATE_ITEMS = [
   {
@@ -51,37 +53,41 @@ function OnBoard() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-between items-center py-5 h-full overflow-hidden lg:flex-row lg:gap-4 lg:items-start">
-      
-      {/* 왼쪽: 텍스트 + 버튼 (웹에서만) */}
-      <section className="hidden h-full lg:flex lg:flex-col lg:justify-center lg:gap-6">
-        <div>
-          <h2 className="text-4xl font-bold text-titleText mb-3">독서 기록의 새로운 시작</h2>
-          <p className="text-xl text-text">Marginalia와 함께 당신의 독서 여정을 기록하세요</p>
+    <div className="flex flex-col items-center h-full p-5 justify-between overflow-x-hidden  lg:flex-row lg:items-center lg:justify-center lg:max-w-screen">
+      {/* 왼쪽 섹션 */}
+      <section className="hidden lg:flex lg:flex-col lg:justify-center lg:gap-8 lg:flex-1 lg:max-w-2xl">
+        <div className="space-y-4">
+          <h2 className="text-4xl font-bold text-titleText leading-tight">
+            독서 기록의 새로운 시작
+          </h2>
+          <p className="text-xl text-text leading-relaxed">
+            Marginalia와 함께 당신의 독서 여정을 기록하세요
+          </p>
         </div>
-        <div className="max-w-md">
-          <Button amount="one">시작하기</Button>
+        <div className="max-w-sm">
+          <Link to="/login">
+            <Button amount="one">시작하기</Button>
+          </Link>
         </div>
       </section>
 
-      {/* 오른쪽: 슬라이드 영역 */}
-      <section className="relative flex-1 w-1/2 flex flex-col gap-4">
-        {/* 슬라이드 */}
-        <div className="relative flex-1 lg:h-150 lg:flex-none">
+      {/* 슬라이드 영역 */}
+      <section className="flex flex-col gap-8 w-full lg:flex-1 lg:gap-12 lg:max-w-2xl">
+        {/* 슬라이드 컨테이너 */}
+        <div className="relative w-full min-h-[500px] lg:min-h-[600px] overflow-hidden">
           {TEMPLATE_ITEMS.map(({ title1, title2, description, src, alt, id }, index) => {
             const isActive = index === currentSlide;
             return (
               <div
                 key={id}
-                className={`absolute inset-0 flex flex-col items-center duration-700 ease-in-out 
-              
+                className={`absolute inset-0 w-full h-full flex flex-col items-center transition-all duration-700 ease-in-out 
                   ${
-                  isActive
-                    ? 'opacity-100 translate-x-0'
-                    : index < currentSlide
-                      ? 'opacity-0 -translate-x-full lg:translate-x-0'
-                      : 'opacity-0 translate-x-full lg:translate-x-0'
-                }`}
+                    isActive
+                      ? 'opacity-100 translate-x-0 z-10 lg:translate-x-0'
+                      : index < currentSlide
+                        ? 'opacity-0 -translate-x-full z-0 lg:opacity-0 lg:translate-x-0'
+                        : 'opacity-0 translate-x-full z-0 lg:opacity-0 lg:translate-x-0'
+                  }`}
               >
                 <Template
                   title1={title1}
@@ -103,7 +109,7 @@ function OnBoard() {
               role="tab"
               aria-label={`${index + 1}번째 슬라이드로 이동`}
               aria-current={index === currentSlide ? 'true' : 'false'}
-              className={`w-10 h-2 rounded-full duration-300 ${
+              className={`w-10 h-2 rounded-full transition-all duration-300 ${
                 index === currentSlide ? 'bg-text' : 'border border-text'
               }`}
               onClick={() => {
@@ -114,12 +120,13 @@ function OnBoard() {
           ))}
         </div>
 
-        {/* 모바일: 버튼 */}
+        {/* 모바일 버튼 */}
         <div className="w-full lg:hidden">
-          <Button amount="one">시작하기</Button>
+          <Link to='login'>
+            <Button amount="one">시작하기</Button>
+          </Link>
         </div>
       </section>
-      
     </div>
   );
 }

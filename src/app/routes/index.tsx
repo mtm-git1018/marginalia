@@ -5,9 +5,9 @@ function Root() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <section className="flex-1 page-layout flex flex-col py-6">
+      <main className="flex-1 flex flex-col px-5 py-3">
         <Outlet />
-      </section>
+      </main>
     </div>
   );
 }

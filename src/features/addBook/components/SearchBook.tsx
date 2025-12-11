@@ -1,26 +1,28 @@
-import { useBookSearch } from "../api/useBookSearch";
+import { useBookSearch, type BookResPonse } from "../api/useBookSearch";
 import { useState } from "react";
 
 
 function SearchBook() {
-  const [keyword,setKeyword] = useState<string>('')
+  const [keyword, setKeyword] = useState<string>('')
+  const [open,setOpen] = useState(false)
   const [debouncedKeyword, setDebouncedKeyword] = useState('')
-  
+  const [book, setBook] = useState<BookResPonse|null>(null)
   const { data } = useBookSearch({
     query: debouncedKeyword  
   })
 
+
+ 
   const handleSearch = (value: string) => {
     setKeyword(value)
     
     const timer = setTimeout(() => {
       setDebouncedKeyword(value)
-    }, 500)
+    }, 1000)
     
     return () => clearTimeout(timer)
   }
 
-  
   return (
     <>
       <label htmlFor="searchbook" className="sr-only">
@@ -31,24 +33,59 @@ function SearchBook() {
         type="text"
         value={keyword}
         placeholder="책 제목 검색"
-        onChange={(e) => handleSearch(e.target.value)}
+        onChange={(e) => {
+          setOpen(true)
+          handleSearch(e.target.value)
+        }}
         className="border rounded-sm border-border w-full p-2"
       />
-      {data && (
+      { open && data && data.length > 0 && (
         <ul className="w-full bg-white p-2 h-100 overflow-y-scroll border flex flex-col gap-3">
-          {data.map(({ thumbnail, title, authors, publisher, isbn,translators }) => (
-            <li key={isbn} className="flex gap-3 items-center cursor-pointer duration-300 hover:bg-background">
+          {data && data.map(({ thumbnail, title, authors, publisher, isbn, translators }) => (
+            <li
+              key={isbn}
+              className="flex gap-3 items-center cursor-pointer duration-300 hover:bg-background"
+              onClick={() => {
+                setOpen(false)
+                setBook((prev) => ({
+                  ...prev!,
+                  thumbnail: thumbnail,
+                  title: title,
+                  authors: authors,
+                  publisher: publisher,
+                  translators: translators,
+                }))
+              }
+              }
+            >
               <div className="w-20 ">
                 <img src={thumbnail} alt={title} />
               </div>
               <div className="flex flex-col gap-2">
                 <h2 className="font-semibold text-titleText text-lg">{title}</h2>
                 <p>저자 : {authors.length > 0 ? authors : '미상'}</p>
-                <p className="text-sm">출판 : {publisher} | 번역 : { translators}</p>
+                <p className="text-sm">
+                  출판 : {publisher} {translators.length > 0 ? `| 번역 : ${translators}` : ''}
+                </p>
               </div>
             </li>
           ))}
         </ul>
+      )}
+
+      {book && (
+        <section className="flex items-center gap-3 mt-5">
+          <div className="w-20 ">
+            <img src={book.thumbnail} alt={book.title} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h2 className="font-semibold text-titleText text-lg">{book.title}</h2>
+            <p>저자 : {book.authors.length > 0 ? book.authors : '미상'}</p>
+            <p className="text-sm">
+              출판 : {book.publisher} {book.translators.length > 0 ? `| 번역 : ${book.translators}` : ''}
+            </p>
+          </div>
+        </section>
       )}
     </>
   );
