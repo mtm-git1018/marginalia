@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 
-const READ_STATUS = ['📚 읽고 싶은 책', '📖 읽는 중인 책', '✅ 완독한 책'];
+const READ_STATUS = ['📖 읽는 중인 책', '📚 읽고 싶은 책', '✅ 완독한 책'];
 
 function ReadStatus() {
   const [currentTab,setCurrentTab] = useState(0)

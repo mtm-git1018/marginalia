@@ -1,5 +1,5 @@
 import { useBookSearch, type BookResPonse } from "../api/useBookSearch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 function SearchBook() {
@@ -13,15 +13,17 @@ function SearchBook() {
 
 
  
-  const handleSearch = (value: string) => {
-    setKeyword(value)
-    
-    const timer = setTimeout(() => {
-      setDebouncedKeyword(value)
-    }, 1000)
-    
-    return () => clearTimeout(timer)
-  }
+   useEffect(() => {
+     const timer = setTimeout(() => {
+       setDebouncedKeyword(keyword);
+     }, 500); 
+
+     return () => clearTimeout(timer); 
+   }, [keyword]);
+
+   const handleSearch = (value: string) => {
+     setKeyword(value); 
+   };
 
   return (
     <>

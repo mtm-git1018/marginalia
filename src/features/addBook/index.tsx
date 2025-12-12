@@ -3,11 +3,17 @@ import Button from "../../shared/components/Button";
 import SearchBook from "./components/SearchBook";
 import ReadStatus from "./components/ReadStatus";
 import AdjustBook from "./components/AdjustBook";
+import { useNavigate } from "react-router";
 
 
 
 
 function AddBook() {
+  const navigate = useNavigate()
+
+  const handleSave = () => {
+    navigate('/study')
+  }
   return (
     <div>
       <header className="flex items-center w-full">
@@ -32,7 +38,6 @@ function AddBook() {
 
       <section className="flex flex-col gap-1 mt-10">
         <Button amount="one">등록</Button>
-        <button className="font-medium">직접 정보 입력하기</button>
       </section>
     </div>
   );

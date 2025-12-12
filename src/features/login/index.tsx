@@ -2,8 +2,15 @@ import naver from '@/shared/asset/icons/naver.webp'
 import kakao from '@/shared/asset/icons/kakao.webp'
 import google from '@/shared/asset/icons/google.webp';
 import SocialLoginBtn from './components/SocialLoginBtn';
+import { auth } from '../../shared/api/firebase';
+
+import { getAdditionalUserInfo, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router';
+
+
 
 function Login() {
+  const navigate = useNavigate()
   const SOCIALS = [
     {
       id: 1,
@@ -21,9 +28,26 @@ function Login() {
       id: 3,
       title: '구글',
       src: google,
-      color:'bg-[#fff]'
+      color: 'bg-[#fff]',
+      onClick: async() => {
+            const provider = new GoogleAuthProvider();
+            try {
+              const result = await signInWithPopup(auth, provider);
+              const user = result.user;
+              const additiionalUserInfo = getAdditionalUserInfo(result)
+              if (additiionalUserInfo) {
+                await navigate('/settings')
+              } else {
+              await navigate(`/${user.uid}`);
+              }
+            } catch (err) {
+              console.error('Google 로그인 오류', err);
+            }
+      }
     },
   ];
+
+ 
 
 
   return (
@@ -39,9 +63,11 @@ function Login() {
 
       <span className="flex flex-col mt-8">
         <ul className="flex flex-col gap-6">
-          {SOCIALS.map(({ id, title, src, color }) => (
+          {SOCIALS.map(({ id, title, src, color,onClick }) => (
             <li key={id} className="flex-center font-semibold">
-              <SocialLoginBtn title={title} src={src} color={color} />
+              <SocialLoginBtn title={title} src={src} color={color}
+              onClick={onClick}
+        />
             </li>
           ))}
         </ul>

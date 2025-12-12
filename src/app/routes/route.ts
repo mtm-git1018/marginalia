@@ -5,6 +5,7 @@ import Login from "../../features/login";
 import Main from "../../features/main";
 import Study from "../../features/study";
 import AddBook from "../../features/addBook";
+import SettingProfile from "../../features/setting";
 
 export const router = createBrowserRouter([{
   path: '/',
@@ -27,5 +28,8 @@ export const router = createBrowserRouter([{
     }, {
       path: '/addbook',
       Component:AddBook
+    }, {
+      path: '/settings',
+      Component:SettingProfile
     }]
 }])
