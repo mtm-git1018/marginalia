@@ -26,7 +26,7 @@ export const router = createBrowserRouter([{
       path: ':id/study',
       Component:Study
     }, {
-      path: '/addbook',
+      path: ':id/addbook',
       Component:AddBook
     }, {
       path: '/settings',

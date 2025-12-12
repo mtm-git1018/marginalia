@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate} from "react-router";
 import { ReadProfile } from "../../shared/api/readProfile";
 import Button from "../../shared/components/Button";
 import { useAuth } from "../../shared/context/AuthContext";
@@ -32,7 +32,7 @@ function Main() {
       <section className="flex flex-col gap-2 mt-8">
         <Button amount="one">서재로 이동하기</Button>
         <Button amount="one" onClick={() => {
-          navigate('/addBook')
+          navigate(`addBook`)
         }}>
           책 추가하기
         </Button>

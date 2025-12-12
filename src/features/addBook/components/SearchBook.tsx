@@ -2,17 +2,21 @@ import { useBookSearch, type BookResPonse } from "../api/useBookSearch";
 import { useEffect, useState } from "react";
 
 
-function SearchBook() {
+interface Props {
+  book: BookResPonse | null | undefined;
+  setBook: React.Dispatch<React.SetStateAction<BookResPonse | null | undefined>>;
+}
+
+function SearchBook({ book,setBook } :Props) {
   const [keyword, setKeyword] = useState<string>('')
   const [open,setOpen] = useState(false)
   const [debouncedKeyword, setDebouncedKeyword] = useState('')
-  const [book, setBook] = useState<BookResPonse|null>(null)
   const { data } = useBookSearch({
     query: debouncedKeyword  
   })
 
+  console.log(book)
 
- 
    useEffect(() => {
      const timer = setTimeout(() => {
        setDebouncedKeyword(keyword);
@@ -41,9 +45,10 @@ function SearchBook() {
         }}
         className="border rounded-sm border-border w-full p-2"
       />
-      { open && data && data.length > 0 && (
+      {
+        open && data && data.length > 0 && (
         <ul className="w-full bg-white p-2 h-100 overflow-y-scroll border flex flex-col gap-3">
-          {data && data.map(({ thumbnail, title, authors, publisher, isbn, translators }) => (
+          {data && data.map(({ thumbnail, title, authors, publisher, isbn, translators,contents }) => (
             <li
               key={isbn}
               className="flex gap-3 items-center cursor-pointer duration-300 hover:bg-background"
@@ -53,6 +58,7 @@ function SearchBook() {
                   ...prev!,
                   thumbnail: thumbnail,
                   title: title,
+                  contents:contents,
                   authors: authors,
                   publisher: publisher,
                   translators: translators,
