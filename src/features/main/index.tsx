@@ -1,19 +1,18 @@
 import { useNavigate} from "react-router";
-import { ReadProfile } from "../../shared/api/readProfile";
 import Button from "../../shared/components/Button";
-import { useAuth } from "../../shared/context/AuthContext";
+
 
 
 
 function Main() {
-  const { user } = useAuth()
-  const uid = user?.uid
-  const { data } = ReadProfile(uid ?? '')
- const navigate = useNavigate()
+
+
+  const navigate = useNavigate()
+  
   return (
     <div>
       <section className="flex flex-col gap-5">
-        <h2>좋은 오후예요. {data?.nickname}님</h2>
+        <h2>좋은 오후예요. 님</h2>
         <ul className="flex justify-between">
           <li className="flex flex-col items-center">
             <span>3</span>

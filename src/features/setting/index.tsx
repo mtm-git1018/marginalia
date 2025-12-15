@@ -2,15 +2,17 @@ import { BiSolidCamera } from "react-icons/bi";
 import Button from "../../shared/components/Button";
 import { useState } from "react";
 import clsx from "clsx";
-import { doc,serverTimestamp, setDoc } from "firebase/firestore";
-import { db } from "../../shared/api/firebase";
-import { getAuth } from "firebase/auth";
+import { supabase } from "../../shared/api/supabase";
 import { useNavigate } from "react-router";
+import type { Tables } from "../../shared/api/database.types";
 
 
 
+type User = Tables<'user'>
+type Profile = Pick<User, 'nickname' | 'genre' | 'profile_image'>
 
 function SettingProfile() {
+
   const BOOK_GENRES = [
   '문학',
   '소설',
@@ -36,66 +38,69 @@ function SettingProfile() {
   '잡지',
   '기타',
   ];
-  const [image, setImage] = useState<string|null>('/profile.webp');
-  const [nickname, setNickname] = useState('')
-  const [genres, setGenres] = useState<string[]>([])
-  const navigate = useNavigate()
-  const auth = getAuth()
 
-  const selectGenre = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const item = e.target.value
-    
-    if (genres.includes(item)) {
-      setGenres(genres.filter((i)=> i !== item))
-    } else {
-        if (genres.length < 3) {
-          setGenres([...genres, e.target.value]);  
-        } else {
-           setGenres([...genres.slice(1),item])
+  const navigate = useNavigate()
+
+  const [form, setForm] = useState<Profile>({
+    nickname:'',
+    profile_image:'',
+    genre: [],
+  })
+ 
+
+  const [image,setImage] = useState<File|null>(null) 
+
+  const selectGenre = (item:string) => {
+    setForm((prev) => {
+      if (prev.genre?.includes(item)) {
+        return {
+          ...prev,
+          genre:prev.genre.filter((g) => g !== item)
         }
-    }
+      }
+      if (prev.genre?.length >= 3) {
+        return {
+            ...prev,
+            genre:[...prev.genre.slice(1), item]
+        }
+      }
+      return {
+        ...prev,
+        genre:[...prev.genre, item]
+      }
+
+    })
   };
 
   const handleProfileImage = async (e:React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     const reader = new FileReader()
     reader.onload = () => {
-      setImage(reader.result as string)
+      setForm((prev) => ({
+        ...prev,
+        profile_image : reader.result as string
+      }))
     }
-    if (file) {
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(file as File)
+    if(!file) return 
     setImage(file)
-    }
   }
 
-  const handleSave = async (image:string|null,nickname:string,genre:string[]) => {
-    try {
-      if (!auth.currentUser) {
-        return
-      }
-
-      const uid = auth.currentUser.uid
-      await setDoc(doc(db, 'user', uid), {
-        profile_image: image,
-        nickname,
-        genre,
-        created_at: serverTimestamp(),
-        updated_at: serverTimestamp(),
-      });
-      await navigate(`/${uid}`)
-    }
-    catch (err) {
-      console.error('유저 정보 저장 실패',err)
-    }
+  const handleSave = async () => {
+    const { error } = await supabase.from('user').insert(form)
+    
+    if(error) console.error('데이터 전송 실패')
+    navigate(`/`)
   }
-
+ 
   return (
     <div className="flex flex-col  justify-between h-full">
+
       <section className="flex flex-col items-center">
         <h1 className="font-semibold text-2xl">프로필 설정</h1>
 
         <div className="relative">
-          <img src={image ?? ''} alt="프로필 이미지" className="w-30 h-30 rounded-full" />
+          <img src={image} alt="프로필 이미지" className="w-30 h-30 rounded-full" />
           {/* 카메라 버튼 */}
           <button className="absolute bottom-0 right-0 w-10 h-10 rounded-full border-2 border-white bg-text flex-center hover:bg-titleText transition-colors">
             <input
@@ -117,7 +122,10 @@ function SettingProfile() {
           id="nickname"
           type="text"
           required
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={(e) => setForm(prev => ({
+            ...prev,
+            nickname:e.target.value
+          }))}
           placeholder="닉네임은 8글자까지 입력 가능합니다."
           className="border p-2 rounded-lg border-border bg-white"
         />
@@ -128,7 +136,7 @@ function SettingProfile() {
         <p className="text-xs text-border">선호하는 장르를 골라주세요</p>
         <div className="flex flex-wrap gap-3">
           {BOOK_GENRES.map((genre, index) => {
-            const select = genres.includes(genre);
+            const select = form.genre?.includes(genre);
 
             return (
               <label
@@ -145,7 +153,7 @@ function SettingProfile() {
                   className="appearance-none"
                   value={genre}
                   checked={select}
-                  onChange={(e) => selectGenre(e)}
+                  onChange={()=> selectGenre(genre)}
                 />
                 {genre}
               </label>
@@ -154,7 +162,7 @@ function SettingProfile() {
         </div>
       </section>
 
-      <Button amount="one" type='submit' onClick={()=>handleSave(image,nickname,genres)}>저장</Button>
+      <Button amount="one" type='submit' onClick={handleSave}>저장</Button>
     </div>
   );
 }

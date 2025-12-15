@@ -1,50 +1,31 @@
-import naver from '@/shared/asset/icons/naver.webp'
+
 import kakao from '@/shared/asset/icons/kakao.webp'
 import google from '@/shared/asset/icons/google.webp';
 import SocialLoginBtn from './components/SocialLoginBtn';
-import { auth } from '../../shared/api/firebase';
+import { googleLogin, kakaoLogin } from './api/socialLogins';
 
-import { getAdditionalUserInfo, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { useNavigate } from 'react-router';
+
 
 
 
 function Login() {
-  const navigate = useNavigate()
+
   const SOCIALS = [
-    {
-      id: 1,
-      title: '네이버',
-      src: naver,
-      color: 'bg-[#00C73C] text-white',
-    },
+
     {
       id: 2,
       title: '카카오',
       src: kakao,
       color: 'bg-[#FAE100]',
+      onClick:kakaoLogin
     },
     {
       id: 3,
       title: '구글',
       src: google,
       color: 'bg-[#fff]',
-      onClick: async() => {
-            const provider = new GoogleAuthProvider();
-            try {
-              const result = await signInWithPopup(auth, provider);
-              const user = result.user;
-              const additiionalUserInfo = getAdditionalUserInfo(result)
-              if (additiionalUserInfo) {
-                await navigate('/settings')
-              } else {
-              await navigate(`/${user.uid}`);
-              }
-            } catch (err) {
-              console.error('Google 로그인 오류', err);
-            }
-      }
-    },
+      onClick:googleLogin
+    }
   ];
 
  

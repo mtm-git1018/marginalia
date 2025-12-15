@@ -6,6 +6,7 @@ import Main from "../../features/main";
 import Study from "../../features/study";
 import AddBook from "../../features/addBook";
 import SettingProfile from "../../features/setting";
+import Callback from "../../features/login/components/Callback";
 
 export const router = createBrowserRouter([{
   path: '/',
@@ -13,6 +14,10 @@ export const router = createBrowserRouter([{
   children: [{
     index: true,
       Component:OnBoard
+  },
+    {
+      path: 'auth/callback',
+      Component:Callback
     },
     {
       path: 'login',
