@@ -25,6 +25,7 @@ interface BookSearchParams {
   target?: 'title' | 'isbn' | 'publisher' | 'person'; // 선택: 검색 필드
 }
 
+
 const searchBook = async (params:BookSearchParams):Promise<BookResPonse[]> => {
   try {
     const res = await axios.get(`https://dapi.kakao.com/v3/search/book`, {
@@ -45,6 +46,7 @@ const searchBook = async (params:BookSearchParams):Promise<BookResPonse[]> => {
     throw error
   }
 };
+
 
 export function useBookSearch(params:BookSearchParams) {
   return useQuery({

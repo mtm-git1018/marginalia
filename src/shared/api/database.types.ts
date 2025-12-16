@@ -14,6 +14,56 @@ export type Database = {
   }
   public: {
     Tables: {
+      books: {
+        Row: {
+          author: string[] | null
+          book_id: string
+          created_at: string
+          publisher: string | null
+          status: Database["public"]["Enums"]["read_status"] | null
+          story: string | null
+          thumbnail: string | null
+          title: string | null
+          translators: string[] | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          author?: string[] | null
+          book_id?: string
+          created_at?: string
+          publisher?: string | null
+          status?: Database["public"]["Enums"]["read_status"] | null
+          story?: string | null
+          thumbnail?: string | null
+          title?: string | null
+          translators?: string[] | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          author?: string[] | null
+          book_id?: string
+          created_at?: string
+          publisher?: string | null
+          status?: Database["public"]["Enums"]["read_status"] | null
+          story?: string | null
+          thumbnail?: string | null
+          title?: string | null
+          translators?: string[] | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "book_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       user: {
         Row: {
           created_at: string
@@ -49,7 +99,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      read_status: "reading" | "want_read" | "done"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -176,6 +226,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      read_status: ["reading", "want_read", "done"],
+    },
   },
 } as const

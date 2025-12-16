@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { useState } from "react";
+import type { Book } from "..";
 
+type Read = 'reading' | 'want_read' | 'done' | null;
 
 const READ_STATUS = [
   {
@@ -10,24 +12,30 @@ const READ_STATUS = [
   },
   {
     id: 1,
-    status: 'wantRead',
+    status: 'want_read',
     tab: '📚 읽고 싶은 책',
   },
   {
     id: 2,
-    status: 'complete',
+    status: 'done',
     tab: '✅ 완독한 책',
   },
 ];
 
 interface Props {
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
+   setBook: React.Dispatch<React.SetStateAction<Book| null >>;
 }
 
-function ReadStatus({ setStatus }:Props ) {
+function ReadStatus({ setBook }:Props ) {
   const [currentIndex,setCurrentIndex] = useState(0)
-  const handleChoose = (status:string,index:number) => {
-    setStatus(status)
+  const handleChoose = (status:Read,index:number) => {
+    setBook(prev => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        status
+      }
+    })
     setCurrentIndex(index)
   }
   return (
@@ -37,7 +45,7 @@ function ReadStatus({ setStatus }:Props ) {
         {READ_STATUS.map(({id,status,tab}, index) => (
           <li
             key={index}
-            onClick={()=>handleChoose(status,id)}
+            onClick={()=>handleChoose(status as Read,id)}
             className={clsx(`border rounded-full
                border-border p-1 flex-center font-semibold cursor-pointer`,
                  currentIndex == index ? 'bg-text text-white' : '')}

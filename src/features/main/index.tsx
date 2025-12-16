@@ -1,18 +1,22 @@
-import { useNavigate} from "react-router";
+import { useNavigate, useParams} from "react-router";
 import Button from "../../shared/components/Button";
+import { useUserProfile } from "../../shared/api/useUserData";
+
 
 
 
 
 function Main() {
-
-
   const navigate = useNavigate()
+  const params = useParams()
+  const { data } = useUserProfile(params.id ?? '')
+
+  console.log(data)
   
   return (
     <div>
       <section className="flex flex-col gap-5">
-        <h2>좋은 오후예요. 님</h2>
+        <h2>좋은 오후예요. { data?.nickname } 님</h2>
         <ul className="flex justify-between">
           <li className="flex flex-col items-center">
             <span>3</span>
@@ -37,7 +41,7 @@ function Main() {
         </Button>
       </section>
       <section>
-        <p>USER님이 지금 읽고 있는 책</p>
+        <p>{ data?.nickname }님이 지금 읽고 있는 책</p>
       </section>
       <section>
         <p>최근활동</p>

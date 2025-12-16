@@ -5,6 +5,9 @@ import "@/shared/styles/global.css";
 
 
 
+
 createRoot(document.getElementById('root')!).render(
+
     <App />
+
 );

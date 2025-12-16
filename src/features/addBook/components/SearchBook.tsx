@@ -1,10 +1,11 @@
-import { useBookSearch, type BookResPonse } from "../api/useBookSearch";
+import type { Book } from "..";
+import { useBookSearch } from "../api/useBookSearch";
 import { useEffect, useState } from "react";
 
 
 interface Props {
-  book: BookResPonse | null | undefined;
-  setBook: React.Dispatch<React.SetStateAction<BookResPonse | null | undefined>>;
+  book: Book
+  setBook: React.Dispatch<React.SetStateAction<Book | null >>;
 }
 
 function SearchBook({ book,setBook } :Props) {

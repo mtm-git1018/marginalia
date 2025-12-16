@@ -46,51 +46,93 @@ function SettingProfile() {
     profile_image:'',
     genre: [],
   })
- 
-
-  const [image,setImage] = useState<File|null>(null) 
-
-  const selectGenre = (item:string) => {
+  //  업로드용 파일 state
+  const [uploadImageFile,setUploadImageFile] = useState<File|null>(null) 
+  // 미리보기 state
+  const [thumbnail, setThumbnail] = useState<string>('')
+  
+  const selectGenre = (item: string) => {
+  
     setForm((prev) => {
-      if (prev.genre?.includes(item)) {
+      const currentGenre = prev.genre ?? []
+      if (currentGenre?.includes(item)) {
         return {
           ...prev,
-          genre:prev.genre.filter((g) => g !== item)
-        }
+          genre: currentGenre.filter((g) => g !== item),
+        };
       }
-      if (prev.genre?.length >= 3) {
+      if (currentGenre.length >= 3) {
         return {
-            ...prev,
-            genre:[...prev.genre.slice(1), item]
-        }
+          ...prev,
+          genre: [...currentGenre.slice(1), item],
+        };
       }
       return {
         ...prev,
-        genre:[...prev.genre, item]
-      }
+        genre: [...currentGenre, item],
+      };
 
     })
   };
 
   const handleProfileImage = async (e:React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    const reader = new FileReader()
-    reader.onload = () => {
-      setForm((prev) => ({
-        ...prev,
-        profile_image : reader.result as string
-      }))
-    }
-    reader.readAsDataURL(file as File)
-    if(!file) return 
-    setImage(file)
+    if (!file) return
+    const url = URL.createObjectURL(file)
+
+    setThumbnail(url)
+    setUploadImageFile(file)
   }
 
-  const handleSave = async () => {
-    const { error } = await supabase.from('user').insert(form)
+
+  const uploadImage = async (userId:string|null):Promise<string|null>=> {
+    if (!uploadImageFile) return null
     
+    try {
+      const fileExt = uploadImageFile.name.split('.').pop()
+      const fileName = `${userId}/profile
+      .${fileExt}`  
+
+      const { error } = await supabase.storage.from('avatars').upload(fileName, uploadImageFile, {
+        upsert:true
+      })
+      if (error) throw new Error('이미지 저장 에러')
+      
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from('avatars').getPublicUrl(fileName);
+        return publicUrl
+    }
+    catch(error) {
+      console.error('이미지 업로드 실패', error)
+      return null
+    }
+  }
+
+
+  const handleSave = async () => {
+    
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if(!user) return
+
+    console.log(user)
+
+    let imageUrl = form.profile_image
+    if (uploadImageFile) {
+      imageUrl = await uploadImage(user.id)
+    }
+
+    const { error } = await supabase.from('user').insert({
+      ...form,
+      profile_image:imageUrl
+    });
+
+
+
     if(error) console.error('데이터 전송 실패')
-    navigate(`/`)
+    navigate(`/${user.id}`)
   }
  
   return (
@@ -100,7 +142,7 @@ function SettingProfile() {
         <h1 className="font-semibold text-2xl">프로필 설정</h1>
 
         <div className="relative">
-          <img src={image} alt="프로필 이미지" className="w-30 h-30 rounded-full" />
+          <img src={thumbnail || '/profile.webp'} alt="프로필 이미지" className="w-30 h-30 rounded-full" />
           {/* 카메라 버튼 */}
           <button className="absolute bottom-0 right-0 w-10 h-10 rounded-full border-2 border-white bg-text flex-center hover:bg-titleText transition-colors">
             <input
