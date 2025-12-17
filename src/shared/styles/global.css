@@ -5,9 +5,9 @@
 @import './utilities.css';
 
 :root{
-  background: #faf8f3;
+  background:var(--color-background);
   font-family: serif;
-  color: var(--color-text);
+  color: var(--color-warmBrown);
 }
 
 html, body, #root {

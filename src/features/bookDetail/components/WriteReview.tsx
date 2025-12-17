@@ -1,26 +1,60 @@
+import { useState } from "react";
 import Button from "../../../shared/components/Button"
 import { Star } from "../../../shared/components/star/Star"
+import { useBookDeatail } from "../api/useBookDetail";
 
-function WriteReview() {
+interface Props {
+  setIsClick: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function WriteReview({ setIsClick }:Props) {
+  
+  const [activeStar, setActiveStar] = useState(5)
+  const [review,setReview] = useState('')
+  const handleClick = (starNum:number) => {
+    setActiveStar(starNum)
+  }
+  const handleCancle = () => {
+    setIsClick(false)
+  }
+  const {mutate} = useBookDeatail();
+
+  const handleSave = () => {
+    mutate({
+      review: review,
+      rate:activeStar
+    })
+  }
+
   return (
     <>
       <section>
         <h1>별점</h1>
-        <div className="flex gap-1 ">
-          <Star></Star>
-          <Star></Star>
-          <Star></Star>
-          <Star></Star>
-          <Star></Star>
-        </div>
+        <ul className="flex gap-1 ">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <li key={star}>
+              <Star active={star <= activeStar} onClick={() => handleClick(star)} />
+            </li>
+          ))}
+          ({ activeStar }/5)
+        </ul>
       </section>
-      <section>
+      <section className="mt-3">
         <h1>독후감</h1>
-        <textarea name="" id="" rows={10} className="border-border rounded-lg border w-full bg-secondBg"></textarea>
+        <label htmlFor="review" className="sr-only">독후감을 자유롭게 작성해주세요</label>
+        <textarea
+          name="review_book"
+          id="review"
+          rows={10}
+          className="border-softTan rounded-lg border w-full bg-secondBg p-2 text-left"
+          placeholder="이 책을 읽고 어떤 생각이 드셨나요? 자유롭게 작성해 주세요
+          "
+          onChange={(e)=>setReview(e.target.value)}
+        ></textarea>
       </section>
-      <section className="flex gap-3">
-        <Button amount="two">취소</Button>
-        <Button amount="two">등록</Button>
+      <section className="flex gap-3 mt-3">
+        <Button amount="two" onClick={handleCancle}>취소</Button>
+        <Button amount="two" onClick={handleSave}>등록</Button>
       </section>
     </>
   );

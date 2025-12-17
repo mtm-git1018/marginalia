@@ -1,7 +1,21 @@
 @theme {
+
+  /* primaryColor */
   --color-background:#FAF8F3;
   --color-secondBg: #F5F1E8;
-  --color-text:#5D4E37;
-  --color-titleText: #3E3526;
-  --color-border : #bda694
+  --color-deepBrown: #3E3526; 
+  --color-warmBrown:#5D4E37;
+  --color-softTan: #bda694;
+
+  /* secondaryColor */
+  --color-lightSand: #e0d8cc;
+  --color-cream:#d4c4b0;
+  --color-dustyBrown:#a89986;
+  
+  /* sementicColor */
+  --color-sageGreen:#7c9493;
+  --color-goldenYellow:#c9a65c;
+  --color-terracotta:#a67c6f;
+  --color-rustRed:#b85c50;
+  
 };

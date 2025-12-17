@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      book_detail: {
+        Row: {
+          book_id: string | null
+          created_at: string
+          detail_id: string
+          page_number: string | null
+          quote: string[] | null
+          rate: number | null
+          review: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          book_id?: string | null
+          created_at?: string
+          detail_id?: string
+          page_number?: string | null
+          quote?: string[] | null
+          rate?: number | null
+          review?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          book_id?: string | null
+          created_at?: string
+          detail_id?: string
+          page_number?: string | null
+          quote?: string[] | null
+          rate?: number | null
+          review?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "book_detail_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["book_id"]
+          },
+          {
+            foreignKeyName: "book_detail_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       books: {
         Row: {
           author: string[] | null

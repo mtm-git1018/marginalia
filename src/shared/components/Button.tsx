@@ -13,7 +13,7 @@ interface Props{
 function Button({children,amount,type='button',onClick}: Props) {
   
   const buttonVariants = cva(
-    'h-12 px-6 rounded-sm bg-text text-white font-semibold w-full duration-200 hover:bg-titleText', {
+    'h-12 px-6 rounded-sm bg-warmBrown text-white font-semibold w-full duration-200 hover:bg-deepBrown', {
       variants: {
         amount: {
           one: 'w-full',

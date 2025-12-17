@@ -15,7 +15,7 @@ function BookQuotes() {
   }
   return (
     <div className="flex-col flex-center gap-3">
-      <div className="w-20 h-20 rounded-full relative bg-border flex-center">
+      <div className="w-20 h-20 rounded-full relative bg-lightSand flex-center">
         <MdOutlineBookmarkBorder size={40 } /> 
       </div>
       <h2 className="text-2xl font-semibold">저장된 문장이 없아요</h2>

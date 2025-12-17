@@ -10,7 +10,7 @@ const [isClick,setIsClick] = useState(false)
   if (isClick) {
     return(
     <div>
-      <WriteReview/>
+        <WriteReview setIsClick={setIsClick } />
     </div>
     )
   }
@@ -18,7 +18,7 @@ const [isClick,setIsClick] = useState(false)
   return (
     <>
       <div className="flex-center flex-col gap-3">
-        <div className="w-20 h-20 rounded-full relative bg-border flex-center">
+        <div className="w-20 h-20 rounded-full relative bg-lightSand flex-center">
           <HiOutlinePencil size={40} />
         </div>
         <h2 className="text-2xl font-semibold">아직 작성된 독후감이 없어요.</h2>
