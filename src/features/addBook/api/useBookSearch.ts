@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+type Read = 'reading' | 'want_read' | 'done' 
 
 export interface BookResPonse {
   title: string,
@@ -14,7 +15,8 @@ export interface BookResPonse {
   price: number,
   sale_price: number,
   thumbnail: string,
-  status:string
+  status: Read
+  rate:number
 }
 
 interface BookSearchParams {

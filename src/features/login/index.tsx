@@ -9,7 +9,7 @@ import { googleLogin, kakaoLogin } from './api/socialLogins';
 
 
 function Login() {
-
+  
   const SOCIALS = [
 
     {

@@ -1,12 +1,24 @@
 import { useState } from "react";
 import { Star } from "../../../shared/components/star/Star";
+import type { BookResPonse } from "../api/useBookSearch";
 
-function AdjustBook() {
+interface Props {
+   setBook: React.Dispatch<React.SetStateAction<BookResPonse | null >>;
+}
+
+function AdjustBook({setBook}:Props) {
 
   const [activeStar,setActiveStar] = useState(0)
 
   const rateScore = (starNum: number) => {
     setActiveStar(starNum)
+       setBook((prev) => {
+         if (!prev) return prev;
+         return {
+           ...prev,
+           rate:starNum,
+         };
+       });
   }
   
   return (

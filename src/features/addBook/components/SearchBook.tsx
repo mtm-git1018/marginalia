@@ -1,11 +1,10 @@
-import type { Book } from "..";
-import { useBookSearch } from "../api/useBookSearch";
+import { useBookSearch, type BookResPonse } from "../api/useBookSearch";
 import { useEffect, useState } from "react";
 
 
 interface Props {
-  book: Book
-  setBook: React.Dispatch<React.SetStateAction<Book | null >>;
+  book: BookResPonse | null
+  setBook: React.Dispatch<React.SetStateAction<BookResPonse | null >>;
 }
 
 function SearchBook({ book,setBook } :Props) {
@@ -15,8 +14,6 @@ function SearchBook({ book,setBook } :Props) {
   const { data } = useBookSearch({
     query: debouncedKeyword  
   })
-
-  console.log(book)
 
    useEffect(() => {
      const timer = setTimeout(() => {

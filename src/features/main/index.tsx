@@ -11,8 +11,6 @@ function Main() {
   const params = useParams()
   const { data } = useUserProfile(params.id ?? '')
 
-  console.log(data)
-  
   return (
     <div>
       <section className="flex flex-col gap-5">
@@ -33,7 +31,9 @@ function Main() {
         </ul>
       </section>
       <section className="flex flex-col gap-2 mt-8">
-        <Button amount="one">서재로 이동하기</Button>
+        <Button amount="one" onClick={() => {
+          navigate('study')
+        }}>서재로 이동하기</Button>
         <Button amount="one" onClick={() => {
           navigate(`addBook`)
         }}>

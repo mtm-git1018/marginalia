@@ -6,8 +6,6 @@ function Callback() {
   const navigate = useNavigate()
   const [error,setError] = useState<boolean | null>(null) 
 
-
-
   useEffect(() => {
       const handleCallback = async () => {
         try {
@@ -16,14 +14,13 @@ function Callback() {
           } = await supabase.auth.getSession();
 
           const uid = session?.user.id;
-
           const { data } = await supabase
             .from('user')
             .select('*')
-            .eq('id', uid ?? '')
+            .eq('user_id', uid ?? '')
             .single();
           if (data) {
-            navigate(`${uid}`);
+            navigate(`/${uid}`);
           } else {
             navigate(`/settings`);
           }
@@ -33,7 +30,7 @@ function Callback() {
         }
       };
     handleCallback()
-  },[])
+  },[navigate])
 
 
   if (error) {

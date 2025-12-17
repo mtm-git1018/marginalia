@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { useState } from "react";
-import type { Book } from "..";
+import type { BookResPonse } from "../api/useBookSearch";
 
-type Read = 'reading' | 'want_read' | 'done' | null;
+type Read = 'reading' | 'want_read' | 'done' ;
 
 const READ_STATUS = [
   {
@@ -23,7 +23,7 @@ const READ_STATUS = [
 ];
 
 interface Props {
-   setBook: React.Dispatch<React.SetStateAction<Book| null >>;
+   setBook: React.Dispatch<React.SetStateAction<BookResPonse | null >>;
 }
 
 function ReadStatus({ setBook }:Props ) {

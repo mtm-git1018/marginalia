@@ -21,6 +21,6 @@ export const googleLogin = async() => {
       redirectTo: 'http://localhost:3000/auth/callback',
     },
   })
-  if (data) alert('로그인 성공')
+  if (data) console.log(data)
   if (error) throw new Error('구글 소셜로그인 실패')
 }

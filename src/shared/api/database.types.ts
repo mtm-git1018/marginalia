@@ -20,6 +20,7 @@ export type Database = {
           book_id: string
           created_at: string
           publisher: string | null
+          rate: number | null
           status: Database["public"]["Enums"]["read_status"] | null
           story: string | null
           thumbnail: string | null
@@ -33,6 +34,7 @@ export type Database = {
           book_id?: string
           created_at?: string
           publisher?: string | null
+          rate?: number | null
           status?: Database["public"]["Enums"]["read_status"] | null
           story?: string | null
           thumbnail?: string | null
@@ -46,6 +48,7 @@ export type Database = {
           book_id?: string
           created_at?: string
           publisher?: string | null
+          rate?: number | null
           status?: Database["public"]["Enums"]["read_status"] | null
           story?: string | null
           thumbnail?: string | null
