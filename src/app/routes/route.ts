@@ -9,7 +9,8 @@ import SettingProfile from "../../features/setting";
 import Callback from "../../features/login/components/Callback";
 import BookDetail from "../../features/bookDetail";
 import BookReport from "../../features/bookDetail/components/BookReport";
-import Sentence from "../../features/bookDetail/components/Sentence";
+import BookQuotes from "../../features/bookDetail/components/BookQuotes";
+
 
 export const router = createBrowserRouter([
   {
@@ -53,8 +54,12 @@ export const router = createBrowserRouter([
             Component:BookReport
           },
           {
-            path: 'sentence',
-            Component:Sentence
+            path:'review',
+            Component:BookReport
+          },
+          {
+            path: 'quotes',
+            Component:BookQuotes
           }
         ]
       },
