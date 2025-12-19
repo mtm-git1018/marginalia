@@ -10,6 +10,7 @@ import Callback from "../../features/login/components/Callback";
 import BookDetail from "../../features/bookDetail";
 import BookReport from "../../features/bookDetail/components/BookReport";
 import BookQuotes from "../../features/bookDetail/components/BookQuotes";
+import Profile from "../../features/profile";
 
 
 export const router = createBrowserRouter([
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: ':id',
         Component: Main,
+      },
+      {
+        path: ':id/profile',
+        Component:Profile
       },
       {
         path: ':id/addbook',

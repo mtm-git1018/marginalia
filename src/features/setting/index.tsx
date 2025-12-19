@@ -91,8 +91,7 @@ function SettingProfile() {
     
     try {
       const fileExt = uploadImageFile.name.split('.').pop()
-      const fileName = `${userId}/profile
-      .${fileExt}`  
+      const fileName = `${userId}/profile.${fileExt}`  
 
       const { error } = await supabase.storage.from('avatars').upload(fileName, uploadImageFile, {
         upsert:true
@@ -116,9 +115,7 @@ function SettingProfile() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if(!user) return
-
-    console.log(user)
+    if(!user) return
 
     let imageUrl = form.profile_image
     if (uploadImageFile) {

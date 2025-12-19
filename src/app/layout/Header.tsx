@@ -1,12 +1,13 @@
-
-import { RxHamburgerMenu } from 'react-icons/rx';
 import { useAuth } from '../../shared/context/AuthContext';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { useUserProfile } from '../../shared/api/useUserData';
 
 function Header() {
   const user = useAuth()
+  const {id}= useParams()
   const navigate = useNavigate()
-
+  const { data } = useUserProfile(id ?? '')
+  
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -20,7 +21,7 @@ function Header() {
   return (
     <header className="h-14 w-full px-5 py-3 bg-deepBrown flex justify-between items-center">
       <h1>
-        <a href='/' onClick={ handleLogoClick } aria-label="Maginalia 홈으로 이동">
+        <a href="/" onClick={handleLogoClick} aria-label="Maginalia 홈으로 이동">
           <img src="/logo.webp" alt="로고 이미지" className="h-8 w-auto" />
         </a>
       </h1>
@@ -30,7 +31,11 @@ function Header() {
         aria-expanded="false"
         aria-controls="navigate-menu"
       >
-        <RxHamburgerMenu size={24} aria-hidden="true" color="#F1F2EF"  />
+        <div className="w-8 h-8 rounded-full overflow-hidden">
+          <a href={`${id}/profile`}>
+            <img src={data?.profile_image?.trim() ?? '/profile.webp'} alt={data?.nickname} />
+          </a>
+        </div>
       </button>
     </header>
   );

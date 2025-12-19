@@ -31,6 +31,8 @@ function WriteQuotes({ setIsClick }: Props) {
       book_id: book_id ?? '',
       quote: updatedQuotes,
       page_number: updatedPageNum,
+    }, {
+      onSuccess: () => { setIsClick(false) }
     });
   }
 
