@@ -1,4 +1,4 @@
-import { useNavigate, useParams} from "react-router";
+import { Link, useNavigate, useParams} from "react-router";
 import Button from '../../shared/components/button/Button';
 
 import { useUserProfile } from "../../shared/api/useUserData";
@@ -66,16 +66,23 @@ function Main() {
         <h2 className="text-lg font-semibold">{data?.nickname}님이 지금 읽고 있는 책</h2>
         <ul className="flex flex-col gap-4 mt-3">
           {reading?.map(({ book_id, thumbnail, title, author, publisher }) => (
-            <li className="flex gap-3 rounded-lg h-30 p-2 border border-softTan" key={book_id}>
-              <div className="w-30 h-full overflow-hidden">
-                <img src={thumbnail ?? ''} alt={title ?? ''} className="object-cover" />
-              </div>
-              <div>
-                <p>{title}</p>
-                <p>{author}</p>
-                <p>{publisher}</p>
-              </div>
-            </li>
+            <Link to={`study/${book_id}`} key={book_id }>
+              <li className="flex gap-3 rounded-lg h-30 p-2 border border-softTan">
+                <div className="w-20 h-full overflow-hidden shrink-0">
+                  <img
+                    src={thumbnail ?? ''}
+                    alt={title ?? ''}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <div>
+                  <p className="font-semibold line-clamp-2">{title}</p>
+                  <div className="flex gap-1 items-center">
+                    <p className="text-sm">{author}</p> |<p className="text-xs">{publisher}</p>
+                  </div>
+                </div>
+              </li>
+            </Link>
           ))}
         </ul>
       </section>

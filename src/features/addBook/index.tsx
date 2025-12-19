@@ -1,6 +1,5 @@
 import SearchBook from "./components/SearchBook";
 import ReadStatus from "./components/ReadStatus";
-import AdjustBook from "./components/AdjustBook";
 import { useState } from "react";
 import { supabase } from "../../shared/api/supabase";
 import type { Tables } from "../../shared/api/database.types";
@@ -26,7 +25,6 @@ function AddBook() {
       thumbnail: book.thumbnail,
       title: book.title,
       translators: book.translators,
-      rate:book.rate
     }
   }
 
@@ -60,10 +58,6 @@ function AddBook() {
 
       <section className="mt-10">
         <ReadStatus setBook={setBook} />
-      </section>
-
-      <section className="mt-10">
-        <AdjustBook setBook={setBook} />
       </section>
 
       <section className="flex flex-col gap-1 mt-10">

@@ -16,7 +16,6 @@ export interface BookResPonse {
   sale_price: number,
   thumbnail: string,
   status: Read
-  rate:number
 }
 
 interface BookSearchParams {

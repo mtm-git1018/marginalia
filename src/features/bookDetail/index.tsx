@@ -1,6 +1,9 @@
 import { Outlet, useNavigate, useParams } from "react-router";
-import { useBooks } from "../../shared/api/useBookData";
+import { useBooks, useDeleteBook } from "../../shared/api/useBookData";
 import { useState } from "react";
+import BackButton from "../../shared/components/button/BackButton";
+import { FaRegTrashCan } from "react-icons/fa6";
+
 
 const TAB_MENU = [
   {
@@ -19,11 +22,20 @@ function BookDetail() {
   const { id,book_id } = useParams();
   const { data,isLoading } = useBooks(id ?? '');
   const [activeTab,setActiveTab] = useState(0)
-
+  const {mutate} = useDeleteBook()
 
   const handleTabClick = (index:number,path:string) => {
     setActiveTab(index)
     navigate(`${path}`)
+  }
+
+  const handleDelete = (book_id: string) => {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      mutate({
+        user_id:id!,
+        book_id
+      })
+    }
   }
 
 const filterBook =data && data.filter(item => item.book_id == book_id)
@@ -35,17 +47,27 @@ const [book] = filterBook || []
 
   return (
     <main>
-      <header className="flex gap-3">
-        <img src={book.thumbnail?? ''} alt={book.title ?? ''} />
-        <div className="flex flex-col gap-1">
-          <h1 className="text-xl font--semibold">{book.title}</h1>
+      <header className="flex items-center gap-3">
+        <BackButton />
+        <p>이전으로 돌아가기</p>
+      </header>
+      <article className="flex gap-3 mt-5">
+        <img src={book.thumbnail ?? ''} alt={book.title ?? ''} />
+        <div className="flex flex-col gap-1 w-full">
+          <span className="flex justify-between">
+            <h1 className="text-xl font--semibold line-clamp-2">{book.title}</h1>
+            <div className="flex gap-2 pl-1">
+              <button onClick={() => handleDelete(book.book_id)}>
+                <FaRegTrashCan />
+              </button>
+            </div>
+          </span>
           <p>{book.author}</p>
           <p className="text-sm">{book.publisher}</p>
-          <p>{book.rate}</p>
         </div>
-      </header>
+      </article>
       <ul className="flex gap-3 border-b mt-5">
-        {TAB_MENU.map(({ tab,path }, index) => {
+        {TAB_MENU.map(({ tab, path }, index) => {
           const isActive = activeTab === index;
           return (
             <li
@@ -55,7 +77,7 @@ const [book] = filterBook || []
                   ? 'font-bold text-titleText border-b cursor-pointer'
                   : 'font-normal cursor-pointer'
               }
-              onClick={() => handleTabClick(index,path)}
+              onClick={() => handleTabClick(index, path)}
             >
               {tab}
             </li>
@@ -63,7 +85,7 @@ const [book] = filterBook || []
         })}
       </ul>
       <section className="mt-3">
-        <Outlet/>
+        <Outlet />
       </section>
     </main>
   );
