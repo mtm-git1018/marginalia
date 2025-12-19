@@ -1,10 +1,11 @@
-import Button from '../../shared/components/Button';
+
 import Template from './components/Template';
 import image1 from '@/shared/asset/welcomeimage1.webp';
 import image2 from '@/shared/asset/welcomeimage2.webp';
 import image3 from '@/shared/asset/welcomeimage3.webp';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
+import Button from '../../shared/components/button/Button';
 
 
 const TEMPLATE_ITEMS = [

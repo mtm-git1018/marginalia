@@ -1,10 +1,11 @@
 import { BiSolidCamera } from "react-icons/bi";
-import Button from "../../shared/components/Button";
+
 import { useState } from "react";
 import clsx from "clsx";
 import { supabase } from "../../shared/api/supabase";
 import { useNavigate } from "react-router";
 import type { Tables } from "../../shared/api/database.types";
+import Button from "../../shared/components/button/Button";
 
 
 

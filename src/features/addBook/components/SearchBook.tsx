@@ -41,7 +41,7 @@ function SearchBook({ book,setBook } :Props) {
           setOpen(true)
           handleSearch(e.target.value)
         }}
-        className="border rounded-sm border-border w-full p-2"
+        className="border rounded-sm border-softTan w-full p-2"
       />
       {
         open && data && data.length > 0 && (

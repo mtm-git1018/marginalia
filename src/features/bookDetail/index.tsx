@@ -16,15 +16,18 @@ const TAB_MENU = [
 
 function BookDetail() {
   const navigate = useNavigate()
-  const { id } = useParams();
+  const { id,book_id } = useParams();
   const { data,isLoading } = useBooks(id ?? '');
   const [activeTab,setActiveTab] = useState(0)
-  const [book] = data || []
+
 
   const handleTabClick = (index:number,path:string) => {
     setActiveTab(index)
     navigate(`${path}`)
   }
+
+const filterBook =data && data.filter(item => item.book_id == book_id)
+const [book] = filterBook || []
 
   if (isLoading) {
     return <p>데이터 로딩중</p>
@@ -32,12 +35,12 @@ function BookDetail() {
 
   return (
     <main>
-      <header className="flex  items-center gap-3">
+      <header className="flex gap-3">
         <img src={book.thumbnail?? ''} alt={book.title ?? ''} />
-        <div>
-          <h1>{book.title}</h1>
+        <div className="flex flex-col gap-1">
+          <h1 className="text-xl font--semibold">{book.title}</h1>
           <p>{book.author}</p>
-          <p>{book.publisher}</p>
+          <p className="text-sm">{book.publisher}</p>
           <p>{book.rate}</p>
         </div>
       </header>
@@ -59,7 +62,7 @@ function BookDetail() {
           );
         })}
       </ul>
-      <section className="mt-5">
+      <section className="mt-3">
         <Outlet/>
       </section>
     </main>

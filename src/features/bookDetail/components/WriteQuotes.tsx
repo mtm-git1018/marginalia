@@ -1,25 +1,39 @@
 import { useState } from "react";
-import Button from "../../../shared/components/Button"
-import { useBookDeatail } from "../api/useBookDetail";
+import Button from '../../../shared/components/button/Button';
+import {  useBookDetail, useUpsertBookDeatail } from "../api/useBookDetail";
+import { useParams } from "react-router";
 
-function WriteQuotes() {
-  const [quote,setQuote] =useState<string[]>([])
-  const [newQuote,setNewQuote] = useState('')
+interface Props {
+  setIsClick: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function WriteQuotes({ setIsClick }: Props) {
+  const { id, book_id } = useParams();
+  const {data} = useBookDetail(id??'',book_id??'')
+  const { mutate } = useUpsertBookDeatail();
+
+  const [quote,setQuote] = useState('')
   const [pageNum,setPageNum] = useState('')
-  const { mutate } = useBookDeatail()
 
-  const handleAddQuote = () => {
-    if (!newQuote.trim()) return
-    setQuote(prev => [...prev,newQuote])
-  }
 
-  const handleSave = () => {
-    handleAddQuote()
+  const handleCancle = () => {
+    setIsClick(false);
+  };
+
+  const handleSave = async() => {
+    const updatedQuotes = quote.trim() ?
+      [...(data?.quote || []), quote.trim()] : data?.quote;
+    const updatedPageNum = pageNum.trim() ? 
+      [...(data?.page_number || []), pageNum.trim()] : data?.page_number
+    
     mutate({
-      quote:quote,
-      page_number:pageNum
-    })
+      user_id: id??'',
+      book_id: book_id ?? '',
+      quote: updatedQuotes,
+      page_number: updatedPageNum,
+    });
   }
+
   return (
     <>
       <section>
@@ -31,7 +45,7 @@ function WriteQuotes() {
           rows={5}
           placeholder="기억하고 싶은 문장을 입력하세요"
           className="border border-border rounded-lg p-2 w-full bg-secondBg "
-          onChange={(e) => setNewQuote(e.target.value)}
+          onChange={(e) => setQuote(e.target.value)}
         ></textarea>
       </section>
       <section>
@@ -42,7 +56,7 @@ function WriteQuotes() {
         </div>
       </section>
       <section className="flex gap-3 mt-5">
-        <Button amount="two">취소</Button>
+        <Button amount="two" onClick={handleCancle}>취소</Button>
         <Button amount="two" onClick={handleSave}>등록</Button>
       </section>
     </>

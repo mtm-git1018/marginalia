@@ -19,7 +19,7 @@ export type Database = {
           book_id: string | null
           created_at: string
           detail_id: string
-          page_number: string | null
+          page_number: string[] | null
           quote: string[] | null
           rate: number | null
           review: string | null
@@ -30,7 +30,7 @@ export type Database = {
           book_id?: string | null
           created_at?: string
           detail_id?: string
-          page_number?: string | null
+          page_number?: string[] | null
           quote?: string[] | null
           rate?: number | null
           review?: string | null
@@ -41,7 +41,7 @@ export type Database = {
           book_id?: string | null
           created_at?: string
           detail_id?: string
-          page_number?: string | null
+          page_number?: string[] | null
           quote?: string[] | null
           rate?: number | null
           review?: string | null

@@ -1,10 +1,26 @@
 
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { useAuth } from '../../shared/context/AuthContext';
+import { useNavigate } from 'react-router';
+
 function Header() {
+  const user = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (user) {
+      navigate(`${user.id}`, { replace: true });
+    } else {
+      navigate('/', { replace: true });
+    }
+  };
+
   return (
     <header className="h-14 w-full px-5 py-3 bg-deepBrown flex justify-between items-center">
       <h1>
-        <a href="/" aria-label="Maginalia 홈으로 이동">
+        <a href='/' onClick={ handleLogoClick } aria-label="Maginalia 홈으로 이동">
           <img src="/logo.webp" alt="로고 이미지" className="h-8 w-auto" />
         </a>
       </h1>

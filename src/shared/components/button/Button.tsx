@@ -1,5 +1,6 @@
 import { cva } from "class-variance-authority"
-import { tw } from "../utill/tw"
+import { tw } from "../../utill/tw"
+
 
 interface Props{
   children: React.ReactNode

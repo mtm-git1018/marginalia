@@ -47,8 +47,8 @@ function ReadStatus({ setBook }:Props ) {
             key={index}
             onClick={()=>handleChoose(status as Read,id)}
             className={clsx(`border rounded-full
-               border-border p-1 flex-center font-semibold cursor-pointer`,
-                 currentIndex == index ? 'bg-text text-white' : '')}
+               border-softTan p-1 flex-center font-semibold cursor-pointer`,
+                 currentIndex == index ? 'bg-warmBrown text-white' : '')}
             >
             {tab}
           </li>

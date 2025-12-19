@@ -1,5 +1,3 @@
-import { BsArrowLeft } from "react-icons/bs"
-import Button from "../../shared/components/Button";
 import SearchBook from "./components/SearchBook";
 import ReadStatus from "./components/ReadStatus";
 import AdjustBook from "./components/AdjustBook";
@@ -8,6 +6,8 @@ import { supabase } from "../../shared/api/supabase";
 import type { Tables } from "../../shared/api/database.types";
 import type { BookResPonse } from "./api/useBookSearch";
 import { useNavigate, useParams } from "react-router";
+import Button from "../../shared/components/button/Button";
+import BackButton from "../../shared/components/button/BackButton";
 
 export type Book = Tables<'books'>
 
@@ -49,7 +49,7 @@ function AddBook() {
     <div>
       <header className="flex items-center w-full">
         <div className="flex w-55 items-center justify-between">
-          <BsArrowLeft size={24} />
+          <BackButton/>
           <h1 className="font-semibold text-xl">책 추가하기</h1>
         </div>
       </header>

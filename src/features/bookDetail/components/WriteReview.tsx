@@ -1,7 +1,10 @@
 import { useState } from "react";
-import Button from "../../../shared/components/Button"
+
+
 import { Star } from "../../../shared/components/star/Star"
-import { useBookDeatail } from "../api/useBookDetail";
+import { useUpsertBookDeatail } from "../api/useBookDetail";
+import { useParams } from "react-router";
+import Button from "../../../shared/components/button/Button";
 
 interface Props {
   setIsClick: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +12,7 @@ interface Props {
 
 function WriteReview({ setIsClick }:Props) {
   
+  const { id, book_id } = useParams()
   const [activeStar, setActiveStar] = useState(5)
   const [review,setReview] = useState('')
   const handleClick = (starNum:number) => {
@@ -17,10 +21,12 @@ function WriteReview({ setIsClick }:Props) {
   const handleCancle = () => {
     setIsClick(false)
   }
-  const {mutate} = useBookDeatail();
+  const { mutate } = useUpsertBookDeatail();
 
   const handleSave = () => {
     mutate({
+      user_id: id ?? '',
+      book_id : book_id ?? '',
       review: review,
       rate:activeStar
     })
