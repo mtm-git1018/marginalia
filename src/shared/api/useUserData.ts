@@ -11,7 +11,6 @@ async function getProfile(id:string) {
 
 
 export function useUserProfile(id: string) {
-  
   const user = useQuery({
     queryKey: ['profile',id],
     queryFn: () => getProfile(id),
