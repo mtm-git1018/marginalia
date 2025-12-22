@@ -31,11 +31,19 @@ function Header() {
         aria-expanded="false"
         aria-controls="navigate-menu"
       >
-        <div className="w-8 h-8 rounded-full overflow-hidden">
+        {
+          user ? (
+           <div className="w-8 h-8 rounded-full overflow-hidden">
           <a href={`${id}/profile`}>
             <img src={data ? data.profile_image?.trim() : '/profile.webp'} alt={data?.nickname} />
           </a>
         </div>
+          ) :
+            (
+              <p className='text-white font-semibold'>Login</p>
+            )
+        }
+       
       </button>
     </header>
   );

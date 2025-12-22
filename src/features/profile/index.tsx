@@ -5,6 +5,7 @@ import Button from "../../shared/components/button/Button"
 import { FiUser } from "react-icons/fi";
 import { SlGraph } from "react-icons/sl";
 import { IoIosHelpCircleOutline } from "react-icons/io";
+import { supabase } from "../../shared/api/supabase";
 
 const TAB_MENU = [
   {
@@ -31,6 +32,10 @@ function Profile() {
   const navigate = useNavigate()
   const handleMovePath = (path:string) => {
     navigate(path)
+  }
+  const handleSignOut = () => {
+    supabase.auth.signOut()
+    navigate('/')
   }
 
   return (
@@ -59,7 +64,7 @@ function Profile() {
       </section>
 
       <section className="mt-10">
-        <Button amount="one">로그아웃</Button>
+        <Button amount="one" onClick={handleSignOut}>로그아웃</Button>
       </section>
     </div>
   );
