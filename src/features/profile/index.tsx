@@ -1,4 +1,4 @@
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { useUserProfile } from "../../shared/api/useUserData"
 import { useAuth } from "../../shared/context/AuthContext"
 import Button from "../../shared/components/button/Button"
@@ -9,7 +9,7 @@ import { IoIosHelpCircleOutline } from "react-icons/io";
 const TAB_MENU = [
   {
     tab: '프로필 수정',
-    path: '/settings',
+    path: 'edit',
     icon: <FiUser />,
   },
   {
@@ -27,13 +27,17 @@ const TAB_MENU = [
 function Profile() {
   const { id } = useParams()
   const { data } = useUserProfile(id ?? '')
-  const user  =useAuth()
+  const user = useAuth()
+  const navigate = useNavigate()
+  const handleMovePath = (path:string) => {
+    navigate(path)
+  }
 
   return (
     <div>
       <section className="flex flex-col items-center justify-center gap-3">
         <div className="h-30 w-30 rounded-full overflow-hidden">
-          <img src={data?.profile_image ?? '/profile.webp'} alt="" />
+          <img src={data?.profile_image ?? '/profile.webp'} alt="프로필 이미지" />
         </div>
         <div className="flex flex-col items-center">
           <p className="text-lg font-semibold">{data?.nickname}</p>
@@ -42,7 +46,9 @@ function Profile() {
       </section>
       <section className="bg-white mt-10 rounded-lg flex flex-col gap-3">
         {TAB_MENU.map(({ icon, tab, path }) => (
-          <button className="flex justify-between border-b px-5 py-4 border-softTan last:border-b-0" key={path}>
+          <button className="flex justify-between border-b px-5 py-4 border-softTan last:border-b-0" key={path}
+          onClick={()=>handleMovePath(path)}
+          >
             <div className="flex items-center gap-2">
               <div>{icon}</div>
               <p>{tab}</p>

@@ -100,7 +100,7 @@ function SettingProfile() {
       
         const {
           data: { publicUrl },
-        } = supabase.storage.from('avatars').getPublicUrl(fileName);
+        } = supabase.storage.from('avatars').getPublicUrl(fileName.trim());
         return publicUrl
     }
     catch(error) {
@@ -142,7 +142,7 @@ function SettingProfile() {
         <div className="relative">
           <img src={thumbnail || '/profile.webp'} alt="프로필 이미지" className="w-30 h-30 rounded-full" />
           {/* 카메라 버튼 */}
-          <button className="absolute bottom-0 right-0 w-10 h-10 rounded-full border-2 border-white bg-text flex-center hover:bg-titleText transition-colors">
+          <button className="absolute bottom-0 right-0 w-10 h-10 rounded-full border-2 border-white bg-warmBrown flex-center hover:bg-titleText transition-colors">
             <input
               id="upload-image"
               type="file"
@@ -167,7 +167,7 @@ function SettingProfile() {
             nickname:e.target.value
           }))}
           placeholder="닉네임은 8글자까지 입력 가능합니다."
-          className="border p-2 rounded-lg border-border bg-white"
+          className="border p-2 rounded-lg border-softTan bg-white"
         />
       </section>
 
@@ -184,7 +184,7 @@ function SettingProfile() {
                 key={genre}
                 className={clsx(
                   `h-5 w-fit border border-text rounded-lg px-4 py-1 flex-center bg-secondBg cursor-pointer`,
-                  select && 'bg-text text-white'
+                  select && 'bg-warmBrown text-white'
                 )}
               >
                 <input

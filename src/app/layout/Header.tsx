@@ -33,7 +33,7 @@ function Header() {
       >
         <div className="w-8 h-8 rounded-full overflow-hidden">
           <a href={`${id}/profile`}>
-            <img src={data?.profile_image?.trim() ?? '/profile.webp'} alt={data?.nickname} />
+            <img src={data ? data.profile_image?.trim() : '/profile.webp'} alt={data?.nickname} />
           </a>
         </div>
       </button>

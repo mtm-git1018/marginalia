@@ -11,6 +11,9 @@ import BookDetail from "../../features/bookDetail";
 import BookReport from "../../features/bookDetail/components/BookReport";
 import BookQuotes from "../../features/bookDetail/components/BookQuotes";
 import Profile from "../../features/profile";
+import Statics from "../../features/profile/components/Statics";
+import EditProfile from "../../features/profile/components/EditProfile";
+import Help from "../../features/profile/components/Help";
 
 
 export const router = createBrowserRouter([
@@ -40,7 +43,19 @@ export const router = createBrowserRouter([
       },
       {
         path: ':id/profile',
-        Component:Profile
+        Component: Profile,
+      },
+      {
+        path: ':id/profile/edit',
+        Component: EditProfile,
+      },
+      {
+        path: ':id/profile/statics',
+        Component: Statics,
+      },
+      {
+        path: ':id/profile/help',
+        Component: Help,
       },
       {
         path: ':id/addbook',
@@ -56,17 +71,17 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component:BookReport
+            Component: BookReport,
           },
           {
-            path:'review',
-            Component:BookReport
+            path: 'review',
+            Component: BookReport,
           },
           {
             path: 'quotes',
-            Component:BookQuotes
-          }
-        ]
+            Component: BookQuotes,
+          },
+        ],
       },
     ],
   },
