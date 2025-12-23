@@ -1,4 +1,4 @@
-export function getMonth(date) {
+export function getMonth(date:string | null) {
   if (!date) return
   
   const dateObj = new Date(date)
