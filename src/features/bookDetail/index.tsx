@@ -3,6 +3,7 @@ import { useBooks, useDeleteBook } from "../addBook/api/useBookData";
 import { useState } from "react";
 import BackButton from "../../shared/components/button/BackButton";
 import { FaRegTrashCan } from "react-icons/fa6";
+import LoadingSpinner from "../../shared/components/loading/LoadingSpinner";
 
 
 const TAB_MENU = [
@@ -42,7 +43,7 @@ const filterBook =data && data.filter(item => item.book_id == book_id)
 const [book] = filterBook || []
 
   if (isLoading) {
-    return <p>데이터 로딩중</p>
+    return <LoadingSpinner></LoadingSpinner>
   }
 
   return (

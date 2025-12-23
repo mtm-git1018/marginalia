@@ -1,12 +1,8 @@
 import { Link, useNavigate, useParams} from "react-router";
 import Button from '../../shared/components/button/Button';
-
 import { useUserProfile } from "../../shared/api/useUserData";
 import { useBooks } from "../addBook/api/useBookData";
 import { sayHi } from "./utill/sayHi";
-
-
-
 
 
 function Main() {
@@ -22,7 +18,7 @@ function Main() {
 
 
   return (
-    <div>
+    <>
       <section className="flex flex-col gap-5">
         <h2 className="text-xl text-deepBrown font-serif font-semibold">
           {sayHi()} {data?.nickname} 님
@@ -86,7 +82,7 @@ function Main() {
           ))}
         </ul>
       </section>
-    </div>
+    </>
   );
 }
 export default Main

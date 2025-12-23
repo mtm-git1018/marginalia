@@ -1,17 +1,11 @@
-
 import kakao from '@/shared/asset/icons/kakao.webp'
 import google from '@/shared/asset/icons/google.webp';
 import SocialLoginBtn from './components/SocialLoginBtn';
 import { googleLogin, kakaoLogin } from './api/socialLogins';
 
-
-
-
-
 function Login() {
   
   const SOCIALS = [
-
     {
       id: 2,
       title: '카카오',
@@ -27,9 +21,6 @@ function Login() {
       onClick:googleLogin
     }
   ];
-
- 
-
 
   return (
     <div className="flex flex-col justify-between py-6 mx-auto max-w-1024 w-full">
