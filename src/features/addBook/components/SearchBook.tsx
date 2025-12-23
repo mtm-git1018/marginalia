@@ -25,7 +25,9 @@ function SearchBook({ book,setBook } :Props) {
 
    const handleSearch = (value: string) => {
      setKeyword(value); 
-   };
+  };
+  
+  console.log(data)
 
   return (
     <>
@@ -56,6 +58,7 @@ function SearchBook({ book,setBook } :Props) {
                   ...prev!,
                   thumbnail: thumbnail,
                   title: title,
+                  isbn : isbn,
                   contents:contents,
                   authors: authors,
                   publisher: publisher,

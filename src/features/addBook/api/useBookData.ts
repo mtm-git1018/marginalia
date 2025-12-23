@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "./supabase";
+import { supabase } from "../../../shared/api/supabase";
 
 async function getBooks(id: string) {
   const { data, error } = await supabase.from('books').select('*').eq('user_id', id)

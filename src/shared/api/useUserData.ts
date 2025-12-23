@@ -34,6 +34,7 @@ export function useUpdateProfile(id: string ) {
   return useMutation({
     mutationFn: (payload: Partial<Profile>) => updateProfile({ id, payload }),
     onSuccess: () => {
+      /* 쿼리 무효화 */
       queryClient.invalidateQueries({
         queryKey: ['profile', id],
       });

@@ -40,7 +40,6 @@ function EditProfile() {
       }
       
       let imageUrl = form.profile_image
-      console.log(imageUrl)
       if (uploadImageFile) {
         const uploadedUrl = await uploadImage();
         if (uploadedUrl) {

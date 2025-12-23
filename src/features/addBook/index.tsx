@@ -15,10 +15,11 @@ function AddBook() {
   const { id } = useParams()
   const [book, setBook] = useState<BookResPonse | null>(null)
 
- 
+
   const insertBook = (book: BookResPonse): Omit<Book, 'user_id'|'book_id' | 'created_at'| 'updated_at'> => {
     return {
       author: book.authors,
+      isbn:book.isbn,
       publisher: book.publisher,
       status: book.status,
       story: book.contents,
