@@ -15,7 +15,7 @@ export type Profile = Pick<User, 'nickname' | 'genre' | 'profile_image'>
 function SettingProfile() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { uploadImageFile, uploadImage } = useUploadeImage({
+  const { src,uploadImageFile, uploadImage,handleSelect } = useUploadeImage({
     userId:id??''
   })
 
@@ -24,7 +24,6 @@ function SettingProfile() {
     profile_image:'',
     genre: [],
   })
-
 
   const handleSave = async () => {
     
@@ -42,25 +41,28 @@ function SettingProfile() {
       ...form,
       profile_image:imageUrl
     });
+    if (form.nickname.length <= 0 || form.nickname.length > 9) {
+      alert('닉네임 글자수를 확인해주세요.')
+    }
 
     if(error) console.error('데이터 전송 실패')
     navigate(`/${user.id}`)
   }
  
   return (
-    <div className="flex flex-col  justify-between h-full">
+    <div className="flex flex-col justify-between h-full">
 
       <section className="flex flex-col items-center">
         <h1 className="font-semibold text-2xl">프로필 설정</h1>
-        <ProfileImage />
+        <ProfileImage src={ src } onChange={handleSelect} />
       </section>
 
       <section className="flex flex-col gap-2">
-        <EditNickName setForm={setForm}/>
+        <EditNickName form={ form } setForm={setForm}/>
       </section>
 
       <section className="flex flex-col gap-3">
-        <SelectGenre form={form } setForm={setForm} />
+        <SelectGenre form={ form } setForm={setForm} />
       </section>
 
       <Button amount="one" type='submit' onClick={handleSave}>저장</Button>

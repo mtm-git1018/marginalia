@@ -60,9 +60,9 @@ function SelectGenre({ form,setForm}:Props) {
 
   return (
     <div>
-      <h2>선호장르</h2>
-      <p className="text-xs text-softTan">선호하는 장르를 골라주세요</p>
-      <div className="flex flex-wrap gap-3">
+      <h2 className="text-lg font-semibold">선호장르</h2>
+      <p className="text-xs text-softTan">선호 장르는 3개까지 선택 가능합니다.</p>
+      <div className="flex flex-wrap gap-3 mt-1">
         {BOOK_GENRES.map((genre, index) => {
           const select = form.genre?.includes(genre);
 
@@ -71,7 +71,7 @@ function SelectGenre({ form,setForm}:Props) {
               htmlFor={`pickgenre-${index}`}
               key={genre}
               className={clsx(
-                `h-5 w-fit border border-warmBrown rounded-lg px-4 py-1 flex-center bg-secondBg cursor-pointer`,
+                `h-5 w-fit border-[0.5px] text-sm border-warmBrown rounded-lg px-4 py-1 flex-center bg-secondBg cursor-pointer`,
                 select && 'bg-warmBrown text-white'
               )}
             >

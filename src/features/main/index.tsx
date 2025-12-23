@@ -24,7 +24,7 @@ function Main() {
   return (
     <div>
       <section className="flex flex-col gap-5">
-        <h2 className="text-xl text-deepBrown">
+        <h2 className="text-xl text-deepBrown font-serif font-semibold">
           {sayHi()} {data?.nickname} 님
         </h2>
         <ul className="flex justify-between">

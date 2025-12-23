@@ -5,7 +5,8 @@ import { useState } from "react";
 import WriteReview from "./WriteReview";
 import { useBookDetail } from "../api/useBookDetail";
 import { useParams } from "react-router";
-import StarRating from "../../../shared/components/star/starRating";
+import StarRating from "../../../shared/components/star/StarRating";
+
 
 function BookReport() {
   const { id,book_id} = useParams()

@@ -17,5 +17,8 @@
   --color-goldenYellow:#c9a65c;
   --color-terracotta:#a67c6f;
   --color-rustRed:#b85c50;
+
+  /* serif font */
+  --font-serif: 'Noto Serif KR',serif
   
 };

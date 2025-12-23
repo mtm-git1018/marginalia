@@ -1,13 +1,12 @@
 import { useAuth } from '../../shared/context/AuthContext';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useUserProfile } from '../../shared/api/useUserData';
 
 function Header() {
   const user = useAuth()
-  const {id}= useParams()
   const navigate = useNavigate()
-  const { data } = useUserProfile(id ?? '')
-  
+  const { data } = useUserProfile(user?.id ?? '')
+
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -34,7 +33,7 @@ function Header() {
         {
           user ? (
            <div className="w-8 h-8 rounded-full overflow-hidden">
-          <a href={`${id}/profile`}>
+          <a href={`${user.id}/profile`}>
             <img src={data ? data.profile_image?.trim() : '/profile.webp'} alt={data?.nickname} />
           </a>
         </div>

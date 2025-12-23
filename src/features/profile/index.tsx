@@ -38,6 +38,8 @@ function Profile() {
     navigate('/')
   }
 
+
+  
   return (
     <div>
       <section className="flex flex-col items-center justify-center gap-3">
