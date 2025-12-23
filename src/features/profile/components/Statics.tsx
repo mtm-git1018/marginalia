@@ -3,7 +3,7 @@ import { useBooks } from "../../addBook/api/useBookData";
 import BackButton from "../../../shared/components/button/BackButton";
 import BarChartSection from "./BarChartSection";
 import { getMonth } from "../utill/getMonth";
-import { isbnFormatter } from "../utill/isbnFormatter";
+
 
 
 
@@ -31,9 +31,7 @@ function Statics() {
     }))
   })()
 
-  if(!data) return
-  const isbn = data.map((book) => isbnFormatter(book.isbn))
-  console.log(isbn)
+
 
   const COLLIGATE_STATIC = [
       {
