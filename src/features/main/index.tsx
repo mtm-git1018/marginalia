@@ -61,13 +61,21 @@ function Main() {
       <section className="mt-10">
         <h2 className="text-lg font-semibold">{data?.nickname}님이 지금 읽고 있는 책</h2>
         <ul className="flex flex-col gap-4 mt-3">
-          {reading?.map(({ book_id, thumbnail, title, author, publisher }) => (
+          {reading?.map(({ book_id, thumbnail, title, author, publisher }, index) => (
             <li className=" rounded-lg p-2 border border-softTan" key={book_id}>
               <Link to={`study/${book_id}`} className="flex gap-3 h-30">
-                <div className="w-20 h-full overflow-hidden shrink-0">
+                <div className="w-20 h-full overflow-hidden shrink- bg-gray-100">
                   <img
                     src={thumbnail ?? ''}
                     alt={title ?? ''}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={index === 0 ? 'high' : 'low'}
+                    decoding={index === 0 ? 'sync' : 'async'}
+                    onError={(e) => {
+                      e.currentTarget.src = '/placeholder-book.png';
+                    }}
+                    width={80}
+                    height={120}
                     className="object-cover w-full h-full"
                   />
                 </div>
