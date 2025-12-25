@@ -62,8 +62,8 @@ function Main() {
         <h2 className="text-lg font-semibold">{data?.nickname}님이 지금 읽고 있는 책</h2>
         <ul className="flex flex-col gap-4 mt-3">
           {reading?.map(({ book_id, thumbnail, title, author, publisher }) => (
-            <Link to={`study/${book_id}`} key={book_id }>
-              <li className="flex gap-3 rounded-lg h-30 p-2 border border-softTan">
+            <li className=" rounded-lg p-2 border border-softTan" key={book_id}>
+              <Link to={`study/${book_id}`} className="flex gap-3 h-30">
                 <div className="w-20 h-full overflow-hidden shrink-0">
                   <img
                     src={thumbnail ?? ''}
@@ -77,8 +77,8 @@ function Main() {
                     <p className="text-sm">{author}</p> |<p className="text-xs">{publisher}</p>
                   </div>
                 </div>
-              </li>
-            </Link>
+              </Link>
+            </li>
           ))}
         </ul>
       </section>

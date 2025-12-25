@@ -2,19 +2,20 @@ import { createBrowserRouter } from "react-router";
 import Root from ".";
 import OnBoard from "../../features/onboard";
 import Login from "../../features/login";
-import Main from "../../features/main";
-import Study from "../../features/study";
-import AddBook from "../../features/addBook";
-import SettingProfile from "../../features/setting";
 import Callback from "../../features/login/components/Callback";
-import BookDetail from "../../features/bookDetail";
-import BookReport from "../../features/bookDetail/components/BookReport";
-import BookQuotes from "../../features/bookDetail/components/BookQuotes";
-import Profile from "../../features/profile";
-import Statics from "../../features/profile/components/Statics";
-import EditProfile from "../../features/profile/components/EditProfile";
-import Help from "../../features/profile/components/Help";
+import { lazy } from "react";
 
+const Main = lazy(() => import("../../features/main"))
+const Study = lazy(() => import("../../features/study"))
+const AddBook = lazy(() => import('../../features/addBook'));
+const Profile = lazy(() => import('../../features/profile'));
+const BookReport = lazy(() => import("../../features/bookDetail/components/BookReport"));
+const BookQuotes = lazy(() => import("../../features/bookDetail/components/BookQuotes"));
+const BookDetail = lazy(() => import('../../features/bookDetail'));
+const SettingProfile = lazy(() => import('../../features/setting'));
+const Statics = lazy(() => import('../../features/profile/components/Statics'));
+const EditProfile = lazy(() => import('../../features/profile/components/EditProfile'));
+const Help = lazy(() => import('../../features/profile/components/Help'));
 
 export const router = createBrowserRouter([
   {
