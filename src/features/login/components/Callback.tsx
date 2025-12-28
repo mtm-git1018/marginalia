@@ -1,17 +1,33 @@
 import { useEffect, useState } from "react"
 import { supabase } from "../../../shared/api/supabase"
 import { useNavigate } from "react-router";
+import LoadingSpinner from "../../../shared/components/loading/LoadingSpinner";
 
 function Callback() {
   const navigate = useNavigate()
-  const [error,setError] = useState<boolean | null>(null) 
+  const [error,setError] = useState<string | null>(null) 
 
   useEffect(() => {
       const handleCallback = async () => {
         try {
           const {
             data: { session },
+            error:sessionError
           } = await supabase.auth.getSession();
+
+          if (sessionError) {
+            console.error('seesion Error', sessionError)
+            setError('세션에러')
+            setTimeout(() => navigate('/login', {replace:true}),2000)
+            return
+          }
+
+          if (!session) {
+                console.error('❌ No session found');
+                setError('로그인 세션을 찾을 수 없습니다');
+                setTimeout(() => navigate('/login', { replace: true }), 2000);
+                return;
+          }
 
           const uid = session?.user.id;
           const { data } = await supabase
@@ -20,13 +36,14 @@ function Callback() {
             .eq('user_id', uid ?? '')
             .single();
           if (data) {
-            navigate(`/${uid}`);
+             setTimeout(() => navigate(`/${uid}`, { replace: true }), 500);
           } else {
-            navigate(`/settings`);
+           setTimeout(() => navigate(`/settings`, { replace: true }), 500);
           }
         } catch (err) {
-          setError(true);
-          console.error(err);
+          console.error('❌ Callback error:', err);
+          setError(err instanceof Error ? err.message : '알 수 없는 오류');
+          setTimeout(() => navigate('/login', { replace: true }), 2000);
         }
       };
     handleCallback()
@@ -37,7 +54,7 @@ function Callback() {
      return <div>로그인 정보를 확인하지 못 했습니다.</div>;
   }
   return (
-    <div>로그인 정보를 확인하고 있습니다.</div>
+    <LoadingSpinner/>
   )
  
 }
