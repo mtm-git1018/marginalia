@@ -1,16 +1,16 @@
-import { createBrowserRouter } from "react-router";
-import Root from ".";
-import OnBoard from "../../features/onboard";
-import Login from "../../features/login";
-import Callback from "../../features/login/components/Callback";
-import { lazy } from "react";
+import { createBrowserRouter } from 'react-router';
+import Root from '.';
+import OnBoard from '../../features/onboard';
+import Login from '../../features/login';
+import Callback from '../../features/login/components/Callback';
+import { lazy } from 'react';
 
-const Main = lazy(() => import("../../features/main"))
-const Study = lazy(() => import("../../features/study"))
+const Main = lazy(() => import('../../features/main'));
+const Study = lazy(() => import('../../features/study'));
 const AddBook = lazy(() => import('../../features/addBook'));
 const Profile = lazy(() => import('../../features/profile'));
-const BookReport = lazy(() => import("../../features/bookDetail/components/BookReport"));
-const BookQuotes = lazy(() => import("../../features/bookDetail/components/BookQuotes"));
+const BookReport = lazy(() => import('../../features/bookDetail/components/BookReport'));
+const BookQuotes = lazy(() => import('../../features/bookDetail/components/BookQuotes'));
 const BookDetail = lazy(() => import('../../features/bookDetail'));
 const SettingProfile = lazy(() => import('../../features/setting'));
 const Statics = lazy(() => import('../../features/profile/components/Statics'));
@@ -19,25 +19,25 @@ const Help = lazy(() => import('../../features/profile/components/Help'));
 
 export const router = createBrowserRouter([
   {
+    path: '/onboard',
+    Component: OnBoard,
+  },
+  {
+    path: 'auth/callback',
+    Component: Callback,
+  },
+  {
+    path: '/settings',
+    Component: SettingProfile,
+  },
+  {
+    path: 'login',
+    Component: Login,
+  },
+  {
     path: '/',
     Component: Root,
     children: [
-      {
-        index: true,
-        Component: OnBoard,
-      },
-      {
-        path: 'auth/callback',
-        Component: Callback,
-      },
-      {
-        path: '/settings',
-        Component: SettingProfile,
-      },
-      {
-        path: 'login',
-        Component: Login,
-      },
       {
         path: ':id',
         Component: Main,

@@ -4,6 +4,7 @@ import { useState } from "react";
 import BackButton from "../../shared/components/button/BackButton";
 import { FaRegTrashCan } from "react-icons/fa6";
 import LoadingSpinner from "../../shared/components/loading/LoadingSpinner";
+import Thumbnail from "../../shared/components/image/Thumbnail";
 
 
 const TAB_MENU = [
@@ -53,7 +54,7 @@ const [book] = filterBook || []
         <p>이전으로 돌아가기</p>
       </header>
       <article className="flex gap-3 mt-5">
-        <img src={book.thumbnail ?? ''} alt={book.title ?? ''} />
+        <Thumbnail thumbnail={book.thumbnail} title={book.title} />
         <div className="flex flex-col gap-1 w-full">
           <span className="flex justify-between">
             <h1 className="text-xl font--semibold line-clamp-2">{book.title}</h1>

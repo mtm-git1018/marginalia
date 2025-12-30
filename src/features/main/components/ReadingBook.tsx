@@ -35,10 +35,11 @@ function ReadingBook({ book, nickname }: Props) {
       </ul>
       {hasMore && (
         <Button
-          amount="one"
+          variant="secondary"
           onClick={() => {
             navigate('study');
           }}
+          className='mt-10'
         >
           더 보기
         </Button>

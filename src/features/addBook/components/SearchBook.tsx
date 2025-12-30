@@ -27,7 +27,6 @@ function SearchBook({ book,setBook } :Props) {
      setKeyword(value); 
   };
   
-  console.log(data)
 
   return (
     <>

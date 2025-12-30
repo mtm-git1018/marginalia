@@ -1,14 +1,14 @@
 interface Props{
-  thumbnail: string,
-  title: string,
-  index:number  
+  thumbnail: string | null,
+  title: string | null,
+  index?:number  
 }
 
 function Thumbnail({ thumbnail, title, index }: Props) {
   return (
     <img
-      src={thumbnail}
-      alt={title}
+      src={thumbnail ?? ''}
+      alt={title ?? ''}
       loading={index === 0 ? 'eager' : 'lazy'}
       fetchPriority={index === 0 ? 'high' : 'low'}
       decoding={index === 0 ? 'sync' : 'async'}

@@ -34,6 +34,24 @@ function AddBook() {
       alert('책을 선택해주세요')
       return
     }
+
+    try {
+      const { data: existBook, error: checkError } = await supabase.from('books').select('*').match({
+        user_id: id,
+        isbn: book.isbn
+      })
+
+      if (checkError) {
+        console.error('책 확인 중 오류', checkError)
+        alert('확인 중 오류가 발생했습니다.')
+        return
+      }
+
+      if (existBook) {
+        alert('이미 저장된 책입니다.')
+        return
+      }
+
     const convertBook = insertBook(book)
     const { error } = await supabase.from('books').insert({
       ...convertBook,
@@ -41,8 +59,13 @@ function AddBook() {
     if (error) throw new Error('책 추가 실패')
     alert('책을 추가했습니다.')
     navigate(`/${id}/study`)
+    }
+    catch (error) {
+      console.error('예상치 못한 오류', error)
+      alert('오류가 발생했습니다.')
+   }
   }
-  
+
 
   return (
     <div>
@@ -62,7 +85,7 @@ function AddBook() {
       </section>
 
       <section className="flex flex-col gap-1 mt-10">
-        <Button amount="one" onClick={handleSave}>
+        <Button variant="primary" onClick={handleSave}>
           등록
         </Button>
       </section>

@@ -1,8 +1,9 @@
-import { useNavigate, useParams } from "react-router";
-import { useUserProfile } from "../../shared/api/useUserData";
+import { useNavigate, useOutletContext, useParams } from "react-router";
 import { useBooks } from "../addBook/api/useBookData";
 import { useState } from "react";
 import BackButton from "../../shared/components/button/BackButton";
+import type { RootOutletContext } from "../../app/routes";
+import Thumbnail from "../../shared/components/image/Thumbnail";
 
 
   const CATEGORY_TAB = [
@@ -30,7 +31,7 @@ import BackButton from "../../shared/components/button/BackButton";
 
 function Study() {
   const { id } = useParams()
-  const { data } = useUserProfile(id ?? '')
+  const {userProfile} = useOutletContext<RootOutletContext>()
   const { data: books } = useBooks(id ?? '')
   const [activeTab,setActiveTab] = useState(0)
   const navigate = useNavigate()
@@ -45,7 +46,7 @@ function Study() {
     <div className="mt-3">
       <header className="flex gap-3 items-center">
         <BackButton />
-        <h1 className="text-2xl">{data?.nickname} 님의 서재</h1>
+        <h1 className="text-2xl">{userProfile?.nickname} 님의 서재</h1>
       </header>
       <ul className="flex gap-3 border-b mt-5">
         {CATEGORY_TAB.map(({ tab }, index) => {
@@ -73,11 +74,7 @@ function Study() {
             onClick={() => navigate(book_id)}
           >
             <div className="w-full max-w-40 aspect-2/3 rounded-sm shadow-2xs overflow-hidden bg-gray-100">
-              <img
-                src={thumbnail ?? '/placeholder-book.png'}
-                alt={title ?? '책 표지'}
-                className="w-full h-full object-cover"
-              />
+              <Thumbnail thumbnail={thumbnail} title={ title } />
             </div>
             <p className="text-sm line-clamp-2 w-full">{title}</p>
           </li>

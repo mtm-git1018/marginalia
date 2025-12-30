@@ -17,7 +17,7 @@ function Callback() {
 
           if (sessionError) {
             console.error('seesion Error', sessionError)
-            setError('세션에러')
+            setError('세션을 확인할 수 없습니다')
             setTimeout(() => navigate('/login', {replace:true}),2000)
             return
           }
@@ -29,21 +29,30 @@ function Callback() {
                 return;
           }
 
-          const uid = session?.user.id;
-          const { data } = await supabase
+          const uid = session.user.id;
+
+          const { data,error } = await supabase
             .from('user')
             .select('*')
-            .eq('user_id', uid ?? '')
-            .single();
+            .eq('user_id', uid)
+            .maybeSingle();
+
+          if (error) {
+            console.error('DB Error', error)
+            setError('사용자 정보를 확인하는 중 오류가 발생했습니다.')
+            navigate('/login',{replace:true})
+            return
+          }
+          
           if (data) {
-             setTimeout(() => navigate(`/${uid}`, { replace: true }), 500);
+            navigate(`/${uid}`, { replace: true })
           } else {
-           setTimeout(() => navigate(`/settings`, { replace: true }), 500);
+           navigate(`/settings`, { replace: true })
           }
         } catch (err) {
           console.error('❌ Callback error:', err);
           setError(err instanceof Error ? err.message : '알 수 없는 오류');
-          setTimeout(() => navigate('/login', { replace: true }), 2000);
+          navigate('/login', { replace: true })
         }
       };
     handleCallback()
