@@ -1,16 +1,16 @@
-import { Link, useNavigate, useParams} from "react-router";
+import { Link, useNavigate, useOutletContext, useParams} from "react-router";
 import Button from '../../shared/components/button/Button';
-import { useUserProfile } from "../../shared/api/useUserData";
 import { useBooks } from "../addBook/api/useBookData";
 import { sayHi } from "./utill/sayHi";
+import Thumbnail from "../../shared/components/image/Thumbnail";
+import type { RootOutletContext } from "../../app/routes";
 
 
 function Main() {
   const navigate = useNavigate()
   const params = useParams()
-  const { data } = useUserProfile(params.id ?? '')
-  const {data:books} = useBooks(params.id ?? '')
-
+  const { userProfile } = useOutletContext<RootOutletContext>()
+  const { data:books } = useBooks(params.id ?? '')
 
   const done = books?.filter((book) => book.status == 'done').length
   const reading = books?.filter((book) => book.status == 'reading')
@@ -21,7 +21,7 @@ function Main() {
     <>
       <section className="flex flex-col gap-5">
         <h2 className="text-xl text-deepBrown font-serif font-semibold">
-          {sayHi()} {data?.nickname} 님
+          {sayHi()} {userProfile?.nickname} 님
         </h2>
         <ul className="flex justify-between">
           <li className="flex flex-col items-center">
@@ -59,36 +59,30 @@ function Main() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-lg font-semibold">{data?.nickname}님이 지금 읽고 있는 책</h2>
-        <ul className="flex flex-col gap-4 mt-3">
-          {reading?.map(({ book_id, thumbnail, title, author, publisher }, index) => (
-            <li className=" rounded-lg p-2 border border-softTan" key={book_id}>
-              <Link to={`study/${book_id}`} className="flex gap-3 h-30">
-                <div className="w-20 h-full overflow-hidden shrink- bg-gray-100">
-                  <img
-                    src={thumbnail ?? ''}
-                    alt={title ?? ''}
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    fetchPriority={index === 0 ? 'high' : 'low'}
-                    decoding={index === 0 ? 'sync' : 'async'}
-                    onError={(e) => {
-                      e.currentTarget.src = '/placeholder-book.png';
-                    }}
-                    width={80}
-                    height={120}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <div>
-                  <p className="font-semibold line-clamp-2">{title}</p>
-                  <div className="flex gap-1 items-center">
-                    <p className="text-sm">{author}</p> |<p className="text-xs">{publisher}</p>
+        <h2 className="text-lg font-semibold">{userProfile?.nickname}님이 지금 읽고 있는 책</h2>
+
+          <ul className="flex flex-col gap-4 mt-3">
+            {reading?.map(({ book_id, thumbnail, title, author, publisher }, index) => (
+              <li className=" rounded-lg p-2 border border-softTan" key={book_id}>
+                <Link to={`study/${book_id}`} className="flex gap-3 h-30">
+                  <div className="w-20 h-full overflow-hidden shrink- bg-gray-100">
+                    <Thumbnail
+                      thumbnail={thumbnail ?? ''}
+                      title={title ?? ''}
+                      index={index} />
                   </div>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                  <div>
+                    <p className="font-semibold line-clamp-2">{title}</p>
+                    <div className="flex gap-1 items-center">
+                      <p className="text-sm">{author}</p> |<p className="text-xs">{publisher}</p>
+                    </div>
+                  </div>
+                </Link>
+              </li> 
+            )          
+          )}
+          </ul>
+  
       </section>
     </>
   );

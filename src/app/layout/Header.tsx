@@ -21,7 +21,10 @@ function Header() {
     <header className="h-14 w-full px-5 py-3 bg-deepBrown flex justify-between items-center">
       <h1>
         <a href="/" onClick={handleLogoClick} aria-label="Maginalia 홈으로 이동">
-          <img src="/logo_200x64.webp" alt="로고 이미지" className="h-8 w-auto" />
+          <img src="/logo_200x64.webp" alt="로고 이미지" className="h-8 w-auto"
+            width={200}
+            height={64}
+          />
         </a>
       </h1>
       <button
@@ -34,7 +37,7 @@ function Header() {
           user ? (
            <div className="w-8 h-8 rounded-full overflow-hidden">
           <a href={`${user.id}/profile`}>
-            <img src={data ? data.profile_image?.trim() : '/profile_64x64.webp'} alt={data?.nickname} />
+            <img src={data ? data.profile_image?.trim() : '/profile_64x64.webp'} alt={data?.nickname} width={32} height={32}/>
           </a>
         </div>
           ) :

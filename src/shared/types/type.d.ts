@@ -11,3 +11,13 @@ export type StaticBook = {
           updated_at: string | null;
           user_id: string | null;
         }[]
+
+
+export interface UserProfile {
+  user_id:string,
+  nickname: string,
+  profile_image: string | null,
+  genre: string[],
+  created_at: Date,
+  updated_at:Date
+}

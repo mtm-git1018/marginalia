@@ -18,7 +18,7 @@ async function deleteBook(id: string,book_id:string) {
 
 export function useBooks(id: string) {
   return useQuery({
-    queryKey: ['book', id],
+    queryKey: ['books', id],
     queryFn: () => getBooks(id),
     enabled:!!id
   })
