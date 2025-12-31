@@ -61,7 +61,7 @@ function OnBoard() {
         description="책장을 넘길때마다 남기고 싶은 순간들. PageMark에서 당신의 독서여정을 소중히 기록하세요"
         keywords="독서 기록, 독서 앱, 책 관리, 독서 다이어리"
       />
-      <div className="flex flex-col items-center h-full p-5 justify-between overflow-x-hidden  lg:flex-row lg:items-center lg:justify-center lg:max-w-screen">
+      <div className="flex flex-col items-center h-100dvh p-5 justify-between overflow-x-hidden  lg:flex-row lg:items-center lg:justify-center lg:max-w-screen">
         {/* 왼쪽 섹션 */}
         <section className="hidden lg:flex lg:flex-col lg:justify-center lg:gap-8 lg:flex-1 lg:max-w-2xl">
           <div className="space-y-4">
