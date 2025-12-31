@@ -33,18 +33,19 @@ function BookStatusSelect({ bookId,initStatus }:Props) {
   }; 
 
   return (
-    <select
-      name="status"
-      id="read-status"
-      className="border px-2 py-1 border-softTan  rounded-sm mt-2"
-      onChange={(e)=>handleChange(e)}
-    >
-      {
-        STATUS_OPTION.map(({ value, label }) => (
-          <option value={value}>{ label }</option>
-        ))
-      }
-    </select>
+    <>
+      <label htmlFor="read-status" className="sr-only">읽기 상태</label>
+      <select
+        name="status"
+        id="read-status"
+        className="border px-2 py-1 border-softTan  rounded-sm mt-2"
+        onChange={(e) => handleChange(e)}
+      >
+        {STATUS_OPTION.map(({ value, label }) => (
+          <option value={value}>{label}</option>
+        ))}
+      </select>
+    </>
   );
 }
 export default BookStatusSelect

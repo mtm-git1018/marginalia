@@ -33,7 +33,7 @@ function Header() {
       >
         {user && (
           <div className="w-8 h-8 rounded-full overflow-hidden">
-            <a href={`${user.id}/profile`}>
+            <a href={`/${user.id}/profile`}>
               <img
                 src={data ? data.profile_image?.trim() : '/profile_64x64.webp'}
                 alt={data?.nickname}

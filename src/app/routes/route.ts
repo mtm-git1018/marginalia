@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, redirect } from 'react-router';
 import Root from '.';
 import OnBoard from '../../features/onboard';
 import Login from '../../features/login';
@@ -72,7 +72,7 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component: BookReport,
+            loader: () => redirect('review')
           },
           {
             path: 'review',

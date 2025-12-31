@@ -23,7 +23,7 @@ function Login() {
   ];
 
   return (
-    <div className="flex flex-col justify-between py-6 mx-auto max-w-1024 w-full">
+    <div className="flex flex-col flex-center h-full py-6 mx-auto max-w-1024 ">
       <span className="flex flex-col items-center gap-4">
         <h2 className="text-center w-82 h-27">
           <img src="/logo-dark-brown.webp" alt="로고" className='object-cover w-full h-full'/>
@@ -33,7 +33,7 @@ function Login() {
         </p>
       </span>
 
-      <span className="flex flex-col mt-8">
+      <span className="flex flex-col mt-8 w-full">
         <ul className="flex flex-col gap-6">
           {SOCIALS.map(({ id, title, src, color,onClick }) => (
             <li key={id} className="flex-center font-semibold">

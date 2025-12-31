@@ -38,10 +38,6 @@ function Profile() {
     navigate('/')
   }
 
-  
-
-
-  
   return (
     <div>
       <section className="flex flex-col items-center justify-center gap-3">
@@ -49,7 +45,7 @@ function Profile() {
           <img src={data?.profile_image ?? '/profile.webp'} alt="프로필 이미지" />
         </div>
         <div className="flex flex-col items-center">
-          <p className="text-lg font-semibold">{data?.nickname}</p>
+          <p className="text-lgaa font-semibold">{data?.nickname}</p>
           <p className="text-sm text-dustyBrown">{user?.email}</p>
         </div>
       </section>

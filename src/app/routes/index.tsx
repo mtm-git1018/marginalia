@@ -18,18 +18,20 @@ function Root() {
   const {data:userProfile,isLoading} = useUserProfile(uid)
 
   if (loading) {
-    return ( 
-      <LoadingSpinner/>
-    )
+    return (
+      <div className="h-full flex-center">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (!user) {
     return <Navigate to='/onboard' replace/>
   }
 
-    if (location.pathname === '/') {
-      return <Navigate to={`/${user.id}`} replace />;
-    }
+  if (location.pathname === '/') {
+    return <Navigate to={`/${user.id}`} replace />;
+  }
 
 
     return (

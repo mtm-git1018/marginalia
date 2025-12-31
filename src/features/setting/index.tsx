@@ -7,6 +7,7 @@ import ProfileImage from "./components/ProfileImage";
 import useUploadeImage from "./hooks/useUploadeImage";
 import EditNickName from "./components/EditNickName";
 import SelectGenre from "./components/SelectGenre";
+import { sweetSuccess } from "@/shared/utill/swal";
 
 
 type User = Tables<'user'>
@@ -45,7 +46,8 @@ function SettingProfile() {
       alert('닉네임 글자수를 확인해주세요.')
     }
 
-    if(error) console.error('데이터 전송 실패')
+    if (error) console.error('데이터 전송 실패')
+    sweetSuccess('가입을 축하드립니다.')
     navigate(`/${user.id}`)
   }
  

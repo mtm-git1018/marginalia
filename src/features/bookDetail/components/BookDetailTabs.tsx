@@ -13,14 +13,13 @@ function BookDetailTabs() {
     navigate(path)
   }
 
-
   return (
     <ul className="flex gap-3 border-b mt-5">
       {TAB_MENU.map(({ tab, path }, index) => {
         const isActive = activeTab === index;
         return (
           <li
-            key={tab}
+            key={path}
             className={
               isActive
                 ? 'font-bold text-titleText border-b cursor-pointer'

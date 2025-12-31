@@ -75,9 +75,7 @@ function Statics() {
         <h2 className="font-semibold text-lg pb-5">{new Date().getFullYear() }년 월별 독서량</h2>
         <BarChartSection data={monthlyData} />
       </section>
-      <section className="mt-5 bg-white rounded-lg px-3 py-5">
-        <h3 className="font-semibold text-lg">선호 장르</h3>
-      </section>
+
     </div>
   );
 }

@@ -78,7 +78,7 @@ function EditProfile() {
         <Button variant="primary" onClick={handleSave}>
           저장
         </Button>
-        <Button variant="primary">회원 탈퇴</Button>
+        <button>회원 탈퇴</button>
       </section>
     </div>
   );
