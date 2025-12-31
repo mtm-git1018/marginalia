@@ -40,7 +40,9 @@ function WriteQuotes({ setIsClick }: Props) {
     <>
       <section>
         <h1>문장</h1>
-        <label htmlFor="quote" className="sr-only">책 속에서 간직하고싶은 문장을 기록해보세요</label>
+        <label htmlFor="quote" className="sr-only">
+          책 속에서 간직하고싶은 문장을 기록해보세요
+        </label>
         <textarea
           name="bookQuote"
           id="quote"
@@ -53,13 +55,21 @@ function WriteQuotes({ setIsClick }: Props) {
       <section>
         <h2>페이지(선택)</h2>
         <div className="flex gap-2 items-center">
-          <input type="text" className="border border-border w-10 p-1 text-right rounded-sm" onChange={(e)=>setPageNum(e.target.value)} />
+          <input
+            type="text"
+            className="border border-border w-10 p-1 text-right rounded-sm"
+            onChange={(e) => setPageNum(e.target.value)}
+          />
           <p>페이지</p>
         </div>
       </section>
       <section className="flex gap-3 mt-5">
-        <Button amount="two" onClick={handleCancle}>취소</Button>
-        <Button amount="two" onClick={handleSave}>등록</Button>
+        <Button variant="primary" onClick={handleCancle}>
+          취소
+        </Button>
+        <Button variant="primary" onClick={handleSave}>
+          등록
+        </Button>
       </section>
     </>
   );

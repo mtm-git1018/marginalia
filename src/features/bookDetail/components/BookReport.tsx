@@ -47,7 +47,9 @@ function BookReport() {
           <p className="text-sm text-gray-400 text-center">
             책을 읽고 난 후의 생각과 느낌을 <br /> 자유롭게 기록해보세요.
           </p>
-          <Button amount="one" onClick={() => setIsClick(true)}>독후감 작성하기</Button>
+          <Button variant="primary" onClick={() => setIsClick(true)}>
+            독후감 작성하기
+          </Button>
         </div>
       </>
     );

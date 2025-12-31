@@ -39,7 +39,7 @@ function BookQuotes() {
         <p className="text-sm text-gray-400 text-center">
           마음에 드는 문장이나 <br /> 기억하고 싶은 구절을 저장해보세요
         </p>
-        <Button amount="one" onClick={() => setIsClick(true)}>
+        <Button variant="primary" onClick={() => setIsClick(true)}>
           문장 추가하기
         </Button>
       </div>

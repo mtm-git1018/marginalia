@@ -42,12 +42,14 @@ function WriteReview({ setIsClick }:Props) {
               <Star active={star <= activeStar} onClick={() => handleClick(star)} />
             </li>
           ))}
-          ({ activeStar }/5)
+          ({activeStar}/5)
         </ul>
       </section>
       <section className="mt-3">
         <h1>독후감</h1>
-        <label htmlFor="review" className="sr-only">독후감을 자유롭게 작성해주세요</label>
+        <label htmlFor="review" className="sr-only">
+          독후감을 자유롭게 작성해주세요
+        </label>
         <textarea
           name="review_book"
           id="review"
@@ -55,12 +57,16 @@ function WriteReview({ setIsClick }:Props) {
           className="border-softTan rounded-lg border w-full bg-secondBg p-2 text-left"
           placeholder="이 책을 읽고 어떤 생각이 드셨나요? 자유롭게 작성해 주세요
           "
-          onChange={(e)=>setReview(e.target.value)}
+          onChange={(e) => setReview(e.target.value)}
         ></textarea>
       </section>
       <section className="flex gap-3 mt-3">
-        <Button amount="two" onClick={handleCancle}>취소</Button>
-        <Button amount="two" onClick={handleSave}>등록</Button>
+        <Button variant="primary" onClick={handleCancle}>
+          취소
+        </Button>
+        <Button variant="primary" onClick={handleSave}>
+          등록
+        </Button>
       </section>
     </>
   );

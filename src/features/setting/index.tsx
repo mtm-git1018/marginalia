@@ -65,7 +65,7 @@ function SettingProfile() {
         <SelectGenre form={ form } setForm={setForm} />
       </section>
 
-      <Button amount="one" type='submit' onClick={handleSave}>저장</Button>
+      <Button variant='primary' type='submit' onClick={handleSave}>저장</Button>
       
     </div>
   );

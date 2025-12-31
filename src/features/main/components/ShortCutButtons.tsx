@@ -6,18 +6,20 @@ function ShortCutButtons() {
   return (
     <>
       <Button
-        amount="one"
+        variant="primary"
         onClick={() => {
           navigate('study');
         }}
+    
       >
         서재로 이동하기
       </Button>
       <Button
-        amount="one"
+        variant="primary"
         onClick={() => {
           navigate(`addBook`);
         }}
+      
       >
         책 추가하기
       </Button>

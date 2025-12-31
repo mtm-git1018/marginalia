@@ -28,7 +28,7 @@ const TAB_MENU = [
 function Profile() {
   const { id } = useParams()
   const { data } = useUserProfile(id ?? '')
-  const user = useAuth()
+  const { user } = useAuth()
   const navigate = useNavigate()
   const handleMovePath = (path:string) => {
     navigate(path)
@@ -37,6 +37,8 @@ function Profile() {
     supabase.auth.signOut()
     navigate('/')
   }
+
+  
 
 
   
@@ -53,8 +55,10 @@ function Profile() {
       </section>
       <section className="bg-white mt-10 rounded-lg flex flex-col gap-3">
         {TAB_MENU.map(({ icon, tab, path }) => (
-          <button className="flex justify-between border-b px-5 py-4 border-softTan last:border-b-0" key={path}
-          onClick={()=>handleMovePath(path)}
+          <button
+            className="flex justify-between border-b px-5 py-4 border-softTan last:border-b-0"
+            key={path}
+            onClick={() => handleMovePath(path)}
           >
             <div className="flex items-center gap-2">
               <div>{icon}</div>
@@ -66,7 +70,9 @@ function Profile() {
       </section>
 
       <section className="mt-10">
-        <Button amount="one" onClick={handleSignOut}>로그아웃</Button>
+        <Button variant="primary" onClick={handleSignOut}>
+          로그아웃
+        </Button>
       </section>
     </div>
   );

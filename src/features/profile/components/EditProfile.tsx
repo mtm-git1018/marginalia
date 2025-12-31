@@ -66,17 +66,19 @@ function EditProfile() {
         <h1>프로필 변경</h1>
       </header>
       <section className="mt-5 flex flex-col items-center">
-        <ProfileImage src={ src } onChange={ handleSelect } />
+        <ProfileImage src={src} onChange={handleSelect} />
       </section>
       <section className="mt-5">
-        <EditNickName form={ form } setForm={setForm} />
+        <EditNickName form={form} setForm={setForm} />
       </section>
       <section className="mt-5">
         <SelectGenre form={form} setForm={setForm} />
       </section>
       <section className="mt-5 flex flex-col gap-3 w-full">
-        <Button amount='one' onClick={handleSave}>저장</Button>
-        <Button amount="one">회원 탈퇴</Button>
+        <Button variant="primary" onClick={handleSave}>
+          저장
+        </Button>
+        <Button variant="primary">회원 탈퇴</Button>
       </section>
     </div>
   );

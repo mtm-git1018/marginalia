@@ -67,7 +67,7 @@ function OnBoard() {
         </div>
         <div className="max-w-sm">
           <Link to="/login">
-            <Button amount="one">시작하기</Button>
+            <Button variant="primary">시작하기</Button>
           </Link>
         </div>
       </section>
@@ -123,8 +123,8 @@ function OnBoard() {
 
         {/* 모바일 버튼 */}
         <div className="w-full lg:hidden">
-          <Link to='login'>
-            <Button amount="one">시작하기</Button>
+          <Link to="login">
+            <Button variant="primary">시작하기</Button>
           </Link>
         </div>
       </section>
