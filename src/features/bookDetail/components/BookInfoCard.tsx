@@ -1,6 +1,7 @@
 import Thumbnail from "@/shared/components/image/Thumbnail";
 import type { Book } from "@/shared/types/type";
 import DeleteBookButton from "./DeleteBookButton";
+import BookStatusSelect from "./BookStatusSelect";
 
 interface Props{
   book: Book | null,
@@ -21,15 +22,7 @@ function BookInfoCard({ book, userId }: Props) {
         </span>
         <p>{book.author}</p>
         <p className="text-sm">{book.publisher}</p>
-        <select
-          name="status"
-          id="read-status"
-          className="border px-2 py-1 border-softTan  rounded-sm mt-2"
-        >
-          <option value="status">읽는 중</option>
-          <option value="status">다 읽은 책</option>
-          <option value="status">읽고 싶은 책</option>
-        </select>
+        <BookStatusSelect bookId={book.book_id} initStatus={ book.status ?? 'reading' } />
       </div>
     </article>
   );
