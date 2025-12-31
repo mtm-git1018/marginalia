@@ -5,7 +5,6 @@ import OnboardSlider from './components/OnboardSlider';
 
 function OnBoard() {
 
-
   return (
     <>
       <SEO

@@ -63,8 +63,10 @@ function Callback() {
      return <div>로그인 정보를 확인하지 못 했습니다.</div>;
   }
   return (
-    <LoadingSpinner/>
-  )
+    <div className="flex-center h-full">
+      <LoadingSpinner />
+    </div>
+  );
  
 }
 export default Callback

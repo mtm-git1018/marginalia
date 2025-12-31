@@ -1,50 +1,31 @@
-import kakao from '@/shared/asset/icons/kakao.webp'
-import google from '@/shared/asset/icons/google.webp';
-import SocialLoginBtn from './components/SocialLoginBtn';
-import { googleLogin, kakaoLogin } from './api/socialLogins';
+import SEO from '@/shared/components/seo/SEO';
+import LoginBtnWrap from './components/LoginBtnWrap';
 
 function Login() {
-  
-  const SOCIALS = [
-    {
-      id: 2,
-      title: '카카오',
-      src: kakao,
-      color: 'bg-[#FAE100]',
-      onClick:kakaoLogin
-    },
-    {
-      id: 3,
-      title: '구글',
-      src: google,
-      color: 'bg-[#fff]',
-      onClick:googleLogin
-    }
-  ];
 
   return (
-    <div className="flex flex-col flex-center h-full py-6 mx-auto max-w-1024 ">
-      <span className="flex flex-col items-center gap-4">
-        <h2 className="text-center w-82 h-27">
-          <img src="/logo-dark-brown.webp" alt="로고" className='object-cover w-full h-full'/>
-        </h2>
-        <p className="text-center">
-          회원가입 절차없이 <br /> 빠르고 간편하게 로그인하세요
-        </p>
-      </span>
+    <>
+      <SEO
+        title="로그인"
+        description="회원가입 절차 없이 소셜 로그인으로 빠르고 간편하게 시작하세요. 카카오, 구글계정으로 로그인 할 수 있습니다."
+        keywords="로그인, 소셜 로그인, 카카오 로그인, 구글 로그인, 간편 로그인"
+      />
+      <div className="flex flex-col flex-center h-full py-6 mx-auto max-w-375 lg:max-w-1024 ">
+        <span className="flex flex-col items-center gap-4">
+          <h1 className="text-center w-82 h-27" aria-label='마지나리아 로고'>
+            <img src="/logo-dark-brown.webp" alt="로고"
+            loading='eager' fetchPriority='high'  className="object-cover w-full h-full" />
+          </h1>
+          <p className="text-center">
+            회원가입 절차없이 <br /> 빠르고 간편하게 로그인하세요
+          </p>
+        </span>
 
-      <span className="flex flex-col mt-8 w-full">
-        <ul className="flex flex-col gap-6">
-          {SOCIALS.map(({ id, title, src, color,onClick }) => (
-            <li key={id} className="flex-center font-semibold">
-              <SocialLoginBtn title={title} src={src} color={color}
-              onClick={onClick}
-        />
-            </li>
-          ))}
-        </ul>
-      </span>
-    </div>
+        <span className="flex flex-col mt-8 w-full">
+          <LoginBtnWrap/>
+        </span>
+      </div>
+    </>
   );
 }
 export default Login

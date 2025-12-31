@@ -31,7 +31,7 @@ function BookQuotes() {
   } else {
 
     return (
-      <div className="flex-col flex-center gap-3">
+      <div className="flex-col flex-center gap-3 mt-10">
         <div className="w-20 h-20 rounded-full relative bg-lightSand flex-center">
           <MdOutlineBookmarkBorder size={40} />
         </div>
