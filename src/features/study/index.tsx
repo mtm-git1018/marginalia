@@ -32,7 +32,7 @@ function Study() {
         description="읽은 책, 읽고 있는 책, 읽고 싶은 책을 한눈에 관리하세요"
         keywords="서재, 독서 목록, 책 관리, 독서 기록"
       />
-      <div className="mt-3">
+      <div className="mt-2">
         <StudyHeader nickname={userProfile.nickname} />
         <CategoryTab activeTab={activeTab} onTabChange={setActiveTab} />
 

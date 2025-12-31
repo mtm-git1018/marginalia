@@ -62,6 +62,10 @@ function Help() {
       answer:
         '마이페이지에서 프로필 사진을 탭하면 변경할 수 있어요. JPG, PNG 형식에 최대 5MB까지 업로드 가능해요.',
     },
+    {
+      question: '버그 및 개선 내용은 어디로 보내나요?',
+      answer:'mtm1018@naver.com로 메일을 보내주시면 최대한 빠르게 반영하도록 하겠습니다.'
+    }
   ];
 
   const handleExpand = (isExpanded:boolean,index:number) => {

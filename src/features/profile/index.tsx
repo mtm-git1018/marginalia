@@ -7,6 +7,7 @@ import { SlGraph } from "react-icons/sl";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { supabase } from "../../shared/api/supabase";
 import SEO from "@/shared/components/seo/SEO";
+import BackButton from "@/shared/components/button/BackButton";
 
 const TAB_MENU = [
   {
@@ -46,7 +47,10 @@ function Profile() {
         description="내 독서 통계와 프로필 정보를 확인하세요"
         keywords="프로필, 독서 통계, 독서 분석"
       />
-      <section className="flex flex-col items-center justify-center gap-3">
+      <section className="flex flex-col items-center justify-center gap-3 mt-2">
+        <div className="flex w-full">
+          <BackButton />
+        </div>
         <div className="h-30 w-30 rounded-full overflow-hidden">
           <img src={data?.profile_image ?? '/profile.webp'} alt="프로필 이미지" />
         </div>

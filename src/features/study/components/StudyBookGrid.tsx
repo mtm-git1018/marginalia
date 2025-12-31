@@ -17,7 +17,7 @@ function StudyBookGrid({books}:{books:Book[] | undefined}) {
 
 
   return (
-    <ul className="grid mt-10 grid-cols-3 md:grid-cols-6 gap-6">
+    <ul className="grid mt-4 grid-cols-3 md:grid-cols-6 gap-6">
       {books?.map(({ book_id, thumbnail, title }) => (
         <li
           key={book_id}

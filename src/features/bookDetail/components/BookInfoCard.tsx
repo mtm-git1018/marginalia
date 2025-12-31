@@ -8,7 +8,7 @@ interface Props{
   userId:string | undefined
 }
 
-function   BookInfoCard({ book, userId }: Props) {
+function BookInfoCard({ book, userId }: Props) {
   if(!book || !userId) return
   return (
     <article className="flex gap-3 mt-5">

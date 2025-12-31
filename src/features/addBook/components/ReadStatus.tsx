@@ -41,7 +41,7 @@ function ReadStatus({ setBook }:Props ) {
   return (
     <>
       <h2>독서 상태 선택</h2>
-      <ul className="flex  flex-col gap-2">
+      <ul className="flex  flex-col gap-2 mt-3">
         {READ_STATUS.map(({id,status,tab}, index) => (
           <li
             key={index}

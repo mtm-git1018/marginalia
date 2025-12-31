@@ -15,7 +15,7 @@ function BookDetail() {
   }
 
   return (
-    <main>
+    <main className="mt-2">
       <SEO
         title={book?.title ?? ''}
         description={`${book?.author}의 "${book?.title}" 독서 기록 및 리뷰`}

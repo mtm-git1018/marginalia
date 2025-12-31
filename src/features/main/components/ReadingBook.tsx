@@ -23,18 +23,24 @@ function ReadingBook({ book, nickname }: Props) {
         </button>
       </header>
       <ul className="flex flex-col gap-4 mt-3">
-        {displayBook?.map(({ book_id, thumbnail, title, author, publisher }, index) => (
-          <li className=" rounded-lg p-2 border border-softTan" key={book_id}>
-            <BookCard
-              book_id={book_id}
-              thumbnail={thumbnail}
-              title={title}
-              author={author}
-              publisher={publisher}
-              index={index}
-            />
-          </li>
-        ))}
+        {displayBook ? (
+          displayBook.map(({ book_id, thumbnail, title, author, publisher }, index) => (
+            <li className=" rounded-lg p-2 border border-softTan" key={book_id}>
+              <BookCard
+                book_id={book_id}
+                thumbnail={thumbnail}
+                title={title}
+                author={author}
+                publisher={publisher}
+                index={index}
+              />
+            </li>
+          ))
+        ) : (
+          <div className="flex flex-col items-center justify-center py-20">
+            <p className="text-gray-400 text-lg">등록된 책이 없습니다.</p>
+          </div>
+        )}
       </ul>
     </>
   );
