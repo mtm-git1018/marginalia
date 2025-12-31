@@ -50,7 +50,7 @@ function Callback() {
            navigate(`/settings`, { replace: true })
           }
         } catch (err) {
-          console.error('❌ Callback error:', err);
+          console.error(' Callback error:', err);
           setError(err instanceof Error ? err.message : '알 수 없는 오류');
           navigate('/login', { replace: true })
         }
