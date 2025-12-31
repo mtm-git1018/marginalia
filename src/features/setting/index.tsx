@@ -48,7 +48,7 @@ function SettingProfile() {
 
     if (error) console.error('데이터 전송 실패')
     sweetSuccess('가입을 축하드립니다.')
-    navigate(`/${user.id}`)
+    navigate(`/${user.id}`, {replace:true})
   }
  
   return (

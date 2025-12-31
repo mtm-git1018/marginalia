@@ -17,7 +17,12 @@ function Template({ title1, title2,description,src,alt}:Props) {
           font-semibold font-serif lg:text-4xl">{title2}</h2>
         </span>
         <span className="flex flex-col items-center gap-5">
-          <img src={src} alt={ alt }  className="h-57 w-full object-cover rounded-lg lg:h-100"/>
+          <img
+            src={src}
+            alt={alt}
+            loading="eager"
+            fetchPriority="high"
+            className="h-57 w-full object-cover rounded-lg lg:h-100" />
           <p className="text-warmBrown text-center text-sm lg:text-lg">{description}</p>
         </span>
       </section>

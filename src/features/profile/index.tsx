@@ -36,7 +36,7 @@ function Profile() {
   }
   const handleSignOut = () => {
     supabase.auth.signOut()
-    navigate('/')
+    navigate('/', {replace:true})
   }
 
   return (
