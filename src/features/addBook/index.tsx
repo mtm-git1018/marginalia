@@ -6,8 +6,8 @@ import type { Tables } from "../../shared/api/database.types";
 import type { BookResPonse } from "./api/useBookSearch";
 import { useNavigate, useParams } from "react-router";
 import Button from "../../shared/components/button/Button";
-import BackButton from "../../shared/components/button/BackButton";
 import SEO from "@/shared/components/seo/SEO";
+import AddBookHeader from "./components/AddBookHeader";
 
 export type Book = Tables<'books'>
 
@@ -40,7 +40,7 @@ function AddBook() {
       const { data: existBook, error: checkError } = await supabase.from('books').select('*').match({
         user_id: id,
         isbn: book.isbn
-      })
+      }).maybeSingle()
 
       if (checkError) {
         console.error('책 확인 중 오류', checkError)
@@ -76,10 +76,7 @@ function AddBook() {
         keywords="책 추가, 책 검색, 서재 등록"
       />
       <header className="flex items-center w-full">
-        <div className="flex w-55 items-center justify-between">
-          <BackButton />
-          <h1 className="font-semibold text-xl">책 추가하기</h1>
-        </div>
+       <AddBookHeader/>
       </header>
 
       <section className="mt-5">
