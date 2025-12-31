@@ -130,7 +130,7 @@ function OnBoard() {
 
           {/* 모바일 버튼 */}
           <div className="w-full lg:hidden">
-            <Link to="login">
+            <Link to="/login">
               <Button variant="primary">시작하기</Button>
             </Link>
           </div>
