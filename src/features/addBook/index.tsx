@@ -7,6 +7,7 @@ import type { BookResPonse } from "./api/useBookSearch";
 import { useNavigate, useParams } from "react-router";
 import Button from "../../shared/components/button/Button";
 import BackButton from "../../shared/components/button/BackButton";
+import SEO from "@/shared/components/seo/SEO";
 
 export type Book = Tables<'books'>
 
@@ -69,9 +70,14 @@ function AddBook() {
 
   return (
     <div>
+      <SEO
+        title="책 추가"
+        description="새로운 책을 서재에 추가하고 독서를 시작하세요."
+        keywords="책 추가, 책 검색, 서재 등록"
+      />
       <header className="flex items-center w-full">
         <div className="flex w-55 items-center justify-between">
-          <BackButton/>
+          <BackButton />
           <h1 className="font-semibold text-xl">책 추가하기</h1>
         </div>
       </header>
@@ -89,7 +95,6 @@ function AddBook() {
           등록
         </Button>
       </section>
-    
     </div>
   );
 }
