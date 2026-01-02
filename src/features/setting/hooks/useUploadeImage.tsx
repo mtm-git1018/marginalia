@@ -25,7 +25,7 @@ export default function useUploadImage({ userId, initialUrl }: Props) {
  }
 
   const uploadImage = async (): Promise<string | null> => {
-    console.log(uploadImageFile)
+
     if (!uploadImageFile) return null;
 
     try {
