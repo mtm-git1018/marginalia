@@ -7,16 +7,19 @@ import { useDeleteQuote } from "../../api/useBookDetail";
 interface Props {
   data: BookDetail;
   onClick: React.Dispatch<React.SetStateAction<boolean>>;
-  handleEdit: () =>void
+  handleEdit: (index:number) => void
 }
 
 function Quotes({ data, onClick, handleEdit }: Props) {
   
   const { mutate } = useDeleteQuote()
   
-  const handleDelete = () => {
+  const handleDelete = (index:number) => {
     mutate({
-      book_id:data.book_id!
+      book_id: data.book_id!,
+      index,
+      quote: data.quote,
+      pageNumber:data.page_number
     })
   }
 
@@ -32,16 +35,16 @@ function Quotes({ data, onClick, handleEdit }: Props) {
               <p>"{quote}"</p>
 
               <div className="flex gap-2">
-                <button onClick={handleEdit}>
+                <button onClick={() => handleEdit(index)}>
                   <HiOutlinePencil />
                 </button>
-                <button onClick={handleDelete}>
+                <button onClick={() => handleDelete(index)}>
                   <FaRegTrashCan />
                 </button>
               </div>
             </div>
             <p className="text-xs text-dustyBrown pt-3">
-              {data.page_number && `p.${data.page_number[index]}`}
+              {data.page_number?.[index] ? `p.${data.page_number[index]}` : '페이지 미기재'}
             </p>
           </li>
         ))}

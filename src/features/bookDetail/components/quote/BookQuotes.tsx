@@ -8,18 +8,20 @@ import Quotes from "./Quotes";
 
 
 function BookQuotes() {
-  const { id,book_id} = useParams()
+  const { id,book_id } = useParams()
   const [isClick,setIsClick] = useState(false)
-  const {data} = useBookDetail(id ?? '',book_id ?? '')
+  const [editIndex,setEditIndex] = useState<number|undefined>(undefined)
+  const { data } = useBookDetail(id ?? '',book_id ?? '')
   
-   const handleEdit = () => {
+   const handleEdit = (index:number) => {
+    setEditIndex(index)
      setIsClick(true);
    };
 
 
   if (isClick) {
     return (
-      <WriteQuotes setIsClick={setIsClick} />
+      <WriteQuotes editIndex={ editIndex } setIsClick={setIsClick} />
     )
   }
 
@@ -34,7 +36,7 @@ function BookQuotes() {
         <div className="w-20 h-20 rounded-full relative bg-lightSand flex-center">
           <MdOutlineBookmarkBorder size={40} />
         </div>
-        <h2 className="text-2xl font-semibold">저장된 문장이 없아요</h2>
+        <h1 className="text-2xl font-semibold">저장된 문장이 없아요</h1>
         <p className="text-sm text-gray-400 text-center">
           마음에 드는 문장이나 <br /> 기억하고 싶은 구절을 저장해보세요
         </p>

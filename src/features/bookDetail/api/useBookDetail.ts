@@ -74,11 +74,16 @@ async function updateBookStatus(book_id: string, status: Status) {
 }
 
 
-async function deleteQuote( book_id: string) {
+async function deleteQuote(book_id: string, index: number, quote: string[] | null, pageNumber: string[]|null) {
+  
+  const newQuote = quote?.filter((_,i) => i !== index)
+  const newPageNumber = pageNumber?.filter((_,i)=> i !== index)
+
   const { error } = await supabase.from('book_detail').update({
-    quote:null
+    quote:newQuote && newQuote.length > 0 ? newQuote : null,
+    page_number: newPageNumber && newPageNumber.length > 0 ? newPageNumber : null
   }).match({
-    book_id:book_id
+    book_id: book_id
   })
 
   if (error) {
@@ -131,7 +136,12 @@ export function useDeleteQuote() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ book_id }: { book_id: string }) => deleteQuote(book_id),
+    mutationFn: ({ book_id, index, quote, pageNumber }: {
+      book_id: string 
+      index: number,
+      quote: string[] | null,
+    pageNumber: string[] | null
+    }) => deleteQuote(book_id,index,quote,pageNumber),
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey:['quotes']})
     }
