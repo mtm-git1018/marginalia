@@ -7,6 +7,15 @@ export const sweetSuccess = (title:string) => {
   });  
 }
 
+export const sweetAlert = (title:string) => {
+  Swal.fire({
+    title,
+    icon:"warning"
+  })
+}
+
+
+
 export const sweetError = (text:string) => {
   Swal.fire({
   icon: "error",

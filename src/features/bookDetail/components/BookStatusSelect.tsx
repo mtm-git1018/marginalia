@@ -39,10 +39,11 @@ function BookStatusSelect({ bookId,initStatus }:Props) {
         name="status"
         id="read-status"
         className="border px-2 py-1 border-softTan  rounded-sm mt-2"
+        value={initStatus}
         onChange={(e) => handleChange(e)}
       >
         {STATUS_OPTION.map(({ value, label }) => (
-          <option value={value}>{label}</option>
+          <option value={value} key={value}>{label}</option>
         ))}
       </select>
     </>

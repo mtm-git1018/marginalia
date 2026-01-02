@@ -1,35 +1,34 @@
 import { MdOutlineBookmarkBorder } from "react-icons/md";
-import Button from '../../../shared/components/button/Button';
+import Button from '@/shared/components/button/Button';
 import { useState } from "react";
-import WriteQuotes from "./WriteQuotes";
 import { useParams } from "react-router";
-import { useBookDetail } from "../api/useBookDetail";
+import { useBookDetail } from "../../api/useBookDetail";
+import WriteQuotes from "./WriteQuotes";
+import Quotes from "./Quotes";
 
 
 function BookQuotes() {
   const { id,book_id} = useParams()
   const [isClick,setIsClick] = useState(false)
   const {data} = useBookDetail(id ?? '',book_id ?? '')
- 
+  
+   const handleEdit = () => {
+     setIsClick(true);
+   };
+
+
   if (isClick) {
     return (
       <WriteQuotes setIsClick={setIsClick} />
     )
   }
 
-  if (data) {
-    return(
-    <ul className="flex flex-col gap-3">
-        {data.quote?.map((quote,index) => (
-          <li className="border border-softTan rounded-lg min-h-15 p-2" key={ index }>
-        "{quote}"
-        <p className="text-xs text-dustyBrown pt-3">{ data.page_number && `p.${data.page_number}`}</p>
-        </li>
-      ))}
-      </ul>
-    )
-  } else {
-
+  if (data?.quote) {
+    return (
+      <Quotes data={data} onClick={setIsClick} handleEdit={ handleEdit} />
+    );
+  }
+  else {
     return (
       <div className="flex-col flex-center gap-3 mt-10">
         <div className="w-20 h-20 rounded-full relative bg-lightSand flex-center">

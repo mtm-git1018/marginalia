@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Button from '../../../shared/components/button/Button';
-import {  useBookDetail, useUpsertBookDeatail } from "../api/useBookDetail";
 import { useParams } from "react-router";
+import { useBookDetail, useUpsertBookDeatail } from "../../api/useBookDetail";
+import Button from "@/shared/components/button/Button";
 
 interface Props {
   setIsClick: React.Dispatch<React.SetStateAction<boolean>>;

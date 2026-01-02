@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../../../shared/api/supabase";
 import type { Status } from "../types/types";
+import { sweetError } from "@/shared/utill/swal";
 
 
 
@@ -63,12 +64,35 @@ async function addBookDetail(
   }
 }
 
+async function updateBookStatus(book_id: string, status: Status) {
+  const { error } = await supabase.from('books').update({ status }).eq('book_id', book_id);
+
+  if (error) {
+    sweetError('저장에 실패하였습니다');
+    throw new Error('책 상태 변경 실패', error);
+  }
+}
+
+
+async function deleteQuote( book_id: string) {
+  const { error } = await supabase.from('book_detail').update({
+    quote:null
+  }).match({
+    book_id:book_id
+  })
+
+  if (error) {
+    sweetError('알 수없는 오류기 발생했습니다.')
+    throw error
+  }
+}
+
   export function useBookDetail(user_id: string, book_id: string) {
     return useQuery({
-      queryKey: ['bookDetail', book_id, user_id],
+      queryKey: ['bookDetail', user_id, book_id],
       queryFn: () => getBookDetail(user_id, book_id),
-      enabled: !!book_id && !!user_id
-    })
+      enabled: !!book_id && !!user_id,
+    });
   }
 
   export function useUpsertBookDeatail() {
@@ -91,19 +115,25 @@ async function addBookDetail(
     })
   }
 
-async function updateBookStatus(book_id: string, status:Status) {
-  const { error } = await supabase.from('books').update({ status }).eq('book_id', book_id)
-  
-  if(error) throw new Error('책 상태 변경 실패')
-}
 
-export function useUpdateBookStatus() {
+  export function useUpdateBookStatus() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ book_id, status }: { book_id: string; status:Status }) => updateBookStatus(book_id, status),
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey:['books']})
+      queryClient.invalidateQueries({ queryKey: ['books'] })
+    }
+  })
+} 
+  
+export function useDeleteQuote() { 
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ book_id }: { book_id: string }) => deleteQuote(book_id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey:['quotes']})
     }
   })
 }
