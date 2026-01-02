@@ -74,7 +74,7 @@ async function updateBookStatus(book_id: string, status: Status) {
 }
 
 
-async function deleteQuote(book_id: string, index: number, quote: string[] | null, pageNumber: string[]|null) {
+async function deleteQuote(user_id:string,book_id: string, index: number, quote: string[] | null, pageNumber: string[]|null) {
   
   const newQuote = quote?.filter((_,i) => i !== index)
   const newPageNumber = pageNumber?.filter((_,i)=> i !== index)
@@ -83,7 +83,8 @@ async function deleteQuote(book_id: string, index: number, quote: string[] | nul
     quote:newQuote && newQuote.length > 0 ? newQuote : null,
     page_number: newPageNumber && newPageNumber.length > 0 ? newPageNumber : null
   }).match({
-    book_id: book_id
+    user_id,
+    book_id
   })
 
   if (error) {
@@ -136,14 +137,15 @@ export function useDeleteQuote() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ book_id, index, quote, pageNumber }: {
+    mutationFn: ({ user_id, book_id, index, quote, pageNumber }: {
+      user_id:string
       book_id: string 
       index: number,
       quote: string[] | null,
-    pageNumber: string[] | null
-    }) => deleteQuote(book_id,index,quote,pageNumber),
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey:['quotes']})
+      pageNumber: string[] | null
+    }) => deleteQuote(user_id,book_id,index,quote,pageNumber),
+    onSuccess: (_,variable) => {
+      queryClient.invalidateQueries({queryKey:['bookDetail',variable.user_id,variable.book_id]})
     }
   })
 }

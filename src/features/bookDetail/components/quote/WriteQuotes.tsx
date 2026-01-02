@@ -2,6 +2,7 @@ import {  useState } from "react";
 import { useParams } from "react-router";
 import { useBookDetail, useUpsertBookDeatail } from "../../api/useBookDetail";
 import Button from "@/shared/components/button/Button";
+import { sweetAlert } from "@/shared/utill/swal";
 
 interface Props {
   editIndex?:number
@@ -27,9 +28,19 @@ function WriteQuotes({ editIndex, setIsClick }: Props) {
     setIsClick(false);
   };
 
+  const handlePageNum = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target.value;
+    if (target.trim() !== '' || /^[0-9]+$/.test(pageNum)) {
+      sweetAlert('페이지 번호는 숫자만 입력가능합니다.');
+      return;
+    }
+    setPageNum(target)
+  };
+
+
   const handleSave = async () => {
     const isEditMode = editIndex !== undefined
-
+    
     let updatedQuote;
     let updatedPageNum;
     
@@ -47,10 +58,8 @@ function WriteQuotes({ editIndex, setIsClick }: Props) {
       : data?.page_number;
     }
    
-   
-    
     mutate({
-      user_id: id??'',
+      user_id: id ?? '',
       book_id: book_id ?? '',
       quote: updatedQuote,
       page_number: updatedPageNum,
@@ -83,7 +92,7 @@ function WriteQuotes({ editIndex, setIsClick }: Props) {
             type="text"
             value={pageNum}
             className="border border-border w-10 p-1 text-right rounded-sm"
-            onChange={(e) => setPageNum(e.target.value)}
+            onChange={(e) => handlePageNum(e)}
           />
           <p>페이지</p>
         </div>

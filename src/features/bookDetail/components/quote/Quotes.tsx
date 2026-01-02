@@ -16,6 +16,7 @@ function Quotes({ data, onClick, handleEdit }: Props) {
   
   const handleDelete = (index:number) => {
     mutate({
+      user_id:data.user_id!,
       book_id: data.book_id!,
       index,
       quote: data.quote,
