@@ -2,30 +2,12 @@ import { useNavigate, useParams } from "react-router"
 import { useUserProfile } from "../../shared/api/useUserData"
 import { useAuth } from "../../shared/context/AuthContext"
 import Button from "../../shared/components/button/Button"
-import { FiUser } from "react-icons/fi";
-import { SlGraph } from "react-icons/sl";
-import { IoIosHelpCircleOutline } from "react-icons/io";
 import { supabase } from "../../shared/api/supabase";
 import SEO from "@/shared/components/seo/SEO";
 import BackButton from "@/shared/components/button/BackButton";
+import { TAB_MENU } from "./constant/tabMenu";
 
-const TAB_MENU = [
-  {
-    tab: '프로필 수정',
-    path: 'edit',
-    icon: <FiUser />,
-  },
-  {
-    tab: '통계',
-    path: 'statics',
-    icon: <SlGraph />,
-  },
-  {
-    tab: '도움말',
-    path: 'help',
-    icon: <IoIosHelpCircleOutline />,
-  },
-];
+
 
 function Profile() {
   const { id } = useParams()

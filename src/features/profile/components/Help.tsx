@@ -1,6 +1,7 @@
 import { FaChevronDown } from "react-icons/fa6";
 import BackButton from "../../../shared/components/button/BackButton"
 import { useState } from "react";
+import SEO from "@/shared/components/seo/SEO";
 
 interface FAQ{
   question: string,
@@ -73,45 +74,56 @@ function Help() {
   }
   
   return (
-    <div>
-      <header className="flex gap-3 items-center">
-        <BackButton />
-        <div className="flex flex-col">
-          <h1 className="text-lg font-semibold">도움말</h1>
-          <p>자주 묻는 질문을 확인해보세요.</p>
-        </div>
-      </header>
+    <>
+      <SEO
+        title="도움말"
+        description="마지나리아를 더 잘 이용하는 방법 도움말을 참고해보세요"
+        keywords="프로필, 도움말"
+      />
+      <div>
+        <header className="flex gap-3 items-center">
+          <BackButton />
+          <div className="flex flex-col">
+            <h1 className="text-lg font-semibold">도움말</h1>
+            <p>자주 묻는 질문을 확인해보세요.</p>
+          </div>
+        </header>
 
-      <section className="mt-10" >
-        <ul className="flex flex-col gap-3">
-          {faqs.map(({ question, answer }, index) => {
-            const isExpanded = expanded === index
-            return (
-              <li
-                key={index}
-                className="bg-white border border-softTan rounded-lg overflow-hidden transition-all"
-              >
-                <button className="w-full flex items-start gap-3 text-left p-2 hover:bg-lightSand transition duration-200 bg-cream"
-                onClick={() => handleExpand(isExpanded,index)}
+        <section className="mt-10">
+          <ul className="flex flex-col gap-3">
+            {faqs.map(({ question, answer }, index) => {
+              const isExpanded = expanded === index;
+              return (
+                <li
+                  key={index}
+                  className="bg-white border border-softTan rounded-lg overflow-hidden transition-all"
                 >
-                  <span className="flex-1 text-sm font-medium text-deepBrown"> {question}</span>
-                  <FaChevronDown className={`mt-0.5 text-warmBrown shrink-0 transition
+                  <button
+                    className="w-full flex items-start gap-3 text-left p-2 hover:bg-lightSand transition duration-200 bg-cream"
+                    onClick={() => handleExpand(isExpanded, index)}
+                  >
+                    <span className="flex-1 text-sm font-medium text-deepBrown"> {question}</span>
+                    <FaChevronDown
+                      className={`mt-0.5 text-warmBrown shrink-0 transition
                     ${isExpanded ? 'rotate-180' : ''}
-                    ` } />
-                </button>
+                    `}
+                    />
+                  </button>
 
-                <div className={`overflow-hidden transition-all ${isExpanded ? 'max-h-90' : 'max-h-0'}`}>
-                  <div className="p-2 border-t border-softTan">
-                    <p className="text-sm text-gray-700 leading-relaxed">{answer}</p>
+                  <div
+                    className={`overflow-hidden transition-all ${isExpanded ? 'max-h-90' : 'max-h-0'}`}
+                  >
+                    <div className="p-2 border-t border-softTan">
+                      <p className="text-sm text-gray-700 leading-relaxed">{answer}</p>
+                    </div>
                   </div>
-                </div>
-              </li>
-            );
-          }
-        )}
-        </ul>
-      </section>
-    </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      </div>
+    </>
   );
 }
 export default Help
