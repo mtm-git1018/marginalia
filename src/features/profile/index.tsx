@@ -31,7 +31,7 @@ function Profile() {
       />
       <section className="flex flex-col items-center justify-center gap-3 mt-2">
         <div className="flex w-full">
-          <BackButton />
+          <BackButton path='/' />
         </div>
         <div className="h-30 w-30 rounded-full overflow-hidden">
           <img src={data?.profile_image ?? '/profile.webp'} alt="프로필 이미지" />

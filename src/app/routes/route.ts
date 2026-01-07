@@ -5,6 +5,7 @@ import Login from '../../features/login';
 import Callback from '../../features/login/components/Callback';
 import { lazy } from 'react';
 
+
 const Main = lazy(() => import('../../features/main'));
 const Study = lazy(() => import('../../features/study'));
 const AddBook = lazy(() => import('../../features/addBook'));
@@ -13,9 +14,11 @@ const BookReport = lazy(() => import('../../features/bookDetail/components/revie
 const BookQuotes = lazy(() => import('../../features/bookDetail/components/quote/BookQuotes'));
 const BookDetail = lazy(() => import('../../features/bookDetail'));
 const SettingProfile = lazy(() => import('../../features/setting'));
-const Statics = lazy(() => import('../../features/profile/components/Statics'));
+const Statics = lazy(() => import('../../features/profile/components/static/Statics'));
 const EditProfile = lazy(() => import('../../features/profile/components/EditProfile'));
 const Help = lazy(() => import('../../features/profile/components/Help'));
+const Timer = lazy (() => import('@/features/timer'))
+
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path: ':id/addbook',
         Component: AddBook,
+      },
+      {
+        path: ':id/timer',
+        Component:Timer,
       },
       {
         path: ':id/study',

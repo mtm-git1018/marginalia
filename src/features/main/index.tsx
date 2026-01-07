@@ -6,6 +6,7 @@ import ReadingBook from "./components/ReadingBook";
 import ReadingStatic from "./components/ReadingStatic";
 import ShortCutButtons from "./components/ShortCutButtons";
 import SEO from "@/shared/components/seo/SEO";
+import AdditionalFeature from "./components/AdditionalFeature";
 
 function Main() {
 
@@ -33,6 +34,10 @@ function Main() {
 
       <section className="flex flex-col gap-2 mt-8">
         <ShortCutButtons />
+      </section>
+
+      <section className="mt-10">
+        <AdditionalFeature/>
       </section>
 
       <section className="mt-10">
