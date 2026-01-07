@@ -35,7 +35,7 @@ function Timer() {
       <section className="flex flex-col items-center gap-6">
         <TimerProgress progress={progress} isActive={isActive} timeString={timeString} />
         <TimerControlButton isActive={isActive} onToggle={handleToggle} resetTimer={resetTimer} />
-        <TimeSetting targetMinutes={targetMinutes} setTargetMinutes={setTargetMinutes} />
+        <TimeSetting isActive={isActive} targetMinutes={targetMinutes} setTargetMinutes={setTargetMinutes} />
         <TimerStatic />
       </section>
     </section>

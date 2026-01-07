@@ -7,6 +7,15 @@ export const sweetSuccess = (title:string) => {
   });  
 }
 
+export const sweetInfo = (text: string) => {
+  Swal.fire({
+    title:'잠깐!',
+    text,
+    icon: 'info',
+  });
+};
+
+
 export const sweetAlert = (title:string) => {
   Swal.fire({
     title,

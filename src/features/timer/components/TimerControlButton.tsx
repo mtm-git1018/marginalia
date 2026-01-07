@@ -11,7 +11,8 @@ function TimerControlButton({ isActive,onToggle,resetTimer}:Props) {
     <div className="flex items-center gap-4">
       {/* 초기화 */}
       <button className="p-4 bg-background hover:bg-border rounded-full transition-colors"
-      onClick={resetTimer}
+        onClick={resetTimer}
+        aria-label="초기화"
       >
         <IoRefresh className="text-xl text-text" />
       </button>
@@ -20,6 +21,7 @@ function TimerControlButton({ isActive,onToggle,resetTimer}:Props) {
       <button
         className="p-6 bg-sageGreen hover:bg-sageGreen/90 rounded-full transition-colors shadow-lg hover:shadow-xl"
         onClick={onToggle}
+        aria-label={`${isActive ? '재생' : '일시정지'}`}
       >
         {isActive ? (
           <IoPause className="text-xl text-white" />
