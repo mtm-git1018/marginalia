@@ -43,3 +43,12 @@ export const sweetConfirm = (title:string,confirmText:string) => {
     }
   })
 }
+
+export const sweetOkay = (title:string, onClose:()=>void) => {
+  Swal.fire({
+    title:title,
+    icon:'success'
+  }).then(() => {
+    onClose()
+  })
+}

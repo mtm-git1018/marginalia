@@ -1,3 +1,4 @@
+import { sweetOkay } from "@/shared/utill/swal"
 import { useCallback, useEffect, useRef, useState } from "react"
 
 function useTimer(initMinute=25) {
@@ -7,15 +8,34 @@ function useTimer(initMinute=25) {
   const [isActive,setIsActive] = useState(false)
   const [startTime,setStartTime] = useState<Date|null>(null)
   const intervalRef = useRef<number | null>(null) 
+  const audioRef = useRef<HTMLAudioElement|null>(null)
 
-
-    const handleTimerComplete = useCallback(() => {
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('독서 타이머 완료', {
-          body: `${targetMinutes}분 독서를 완료하였습니다.`,
-        });
+  const handleTimerComplete = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((error) => {
+        console.error('알림음 실행 실패',error)
+      })
+    }
+    sweetOkay(`${targetMinutes}분 독서에 성공하셨습니다.`,
+      () => {
+        audioRef.current?.pause()
       }
-    }, [targetMinutes]);
+    )
+  }, [targetMinutes]);
+  
+  useEffect(() => { 
+    audioRef.current = new Audio('/sound/alarm-clock-short-6402.mp3');
+
+    audioRef.current.load()
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current = null
+      }
+    }
+  },[])
   
   useEffect(() => {
     if (isActive && totalSeconds > 0) {

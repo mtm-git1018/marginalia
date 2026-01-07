@@ -9,7 +9,7 @@ function TimeSetting({ targetMinutes,setTargetMinutes }:Props) {
  
   return (
     <div className="flex gap-2 flex-wrap justify-center">
-      {[15, 25, 30, 45, 60].map((min) => (
+      {[0.1,15, 25, 30, 45, 60].map((min) => (
         <button
           key={min}
           onClick={() => setTargetMinutes(min)}
