@@ -1,7 +1,6 @@
 import { sweetInfo } from "@/shared/utill/swal";
 import { useState } from "react";
 
-
 interface Props {
   isActive:boolean
   targetMinutes:number

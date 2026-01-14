@@ -1,32 +1,54 @@
 import { sweetOkay } from "@/shared/utill/swal"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { usePostTimer } from "../api/usePostTimer"
+import { useAuth } from "@/shared/context/AuthContext"
+import useBGM from "./useBGM"
 
-function useTimer(initMinute=25) {
 
+
+function useTimer(initMinute = 25) {
   const [targetMinutes, setTargetMinutes] = useState(initMinute)
-  const [totalSeconds,setTotalSeconds] = useState(initMinute * 60)
+  const [totalSeconds, setTotalSeconds] = useState(initMinute * 60)
   const [isActive,setIsActive] = useState(false)
-  const [startTime,setStartTime] = useState<Date|null>(null)
+  const [startTime, setStartTime] = useState<Date | null>(null)
+  const [bgm, setBgm] = useState('')
+  
   const intervalRef = useRef<number | null>(null) 
-  const audioRef = useRef<HTMLAudioElement|null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  const handleTimerComplete = useCallback(() => {
+  const { mutate } = usePostTimer();
+  const { user }= useAuth()
+  const { stopBgm } = useBGM(bgm, isActive)
+  
+  const handleChooseBgm = (sound:string) => {
+   setBgm(sound)
+ }
+
+
+  /* 타이머 시간 소진 시  */
+  const handleTimerComplete = () => {
+    stopBgm()
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch((error) => {
         console.error('알림음 실행 실패',error)
       })
     }
+
     sweetOkay(`${targetMinutes}분 독서에 성공하셨습니다.`,
       () => {
         audioRef.current?.pause()
+         mutate({
+           userId: user?.id ?? '',
+           time: totalSeconds,
+         });
       }
     )
-  }, [targetMinutes]);
-  
+  }
+
+  // 컴포넌트 마운트 시 오디오파일 초기화
   useEffect(() => { 
     audioRef.current = new Audio('/sound/alarm-clock-short-6402.mp3');
-
     audioRef.current.load()
 
     return () => {
@@ -35,8 +57,9 @@ function useTimer(initMinute=25) {
         audioRef.current = null
       }
     }
-  },[])
+  }, [])
   
+  // 활성화 감지
   useEffect(() => {
     if (isActive && totalSeconds > 0) {
       intervalRef.current = window.setInterval(() => {
@@ -63,30 +86,31 @@ function useTimer(initMinute=25) {
   }, [isActive, totalSeconds])
   
 
-
-  const startTimer = useCallback(() => {
+  const startTimer = () => {
     setIsActive(true)
     if (!startTime) {
       setStartTime(new Date())
     }
-  }, [startTime])
+  }
   
-  const pauseTimer = useCallback(() => {
+  const pauseTimer = () => {
     setIsActive(false)
-  }, [])
+  }
   
-  const resetTimer = useCallback(() => {
+  const resetTimer = () => {
     setIsActive(false)
     setTotalSeconds(targetMinutes * 60)
     setStartTime(null)
-  },[targetMinutes])
+  }
 
-  const updateTargetMinutes = useCallback((minutes: number) => {
+  const updateTargetMinutes = (minutes: number) => {
     setTargetMinutes(minutes)
     setTotalSeconds(minutes * 60)
     setIsActive(false)
     setStartTime(null)
-  },[])
+  }
+  
+
 
 const minutes = Math.floor(totalSeconds / 60);
 const seconds = totalSeconds % 60;
@@ -99,6 +123,7 @@ const progress = ((targetMinutes * 60 - totalSeconds) / (targetMinutes * 60)) * 
     isActive,
     progress,
     timeString,
+    handleChooseBgm,
     startTimer,
     pauseTimer,
     resetTimer,
